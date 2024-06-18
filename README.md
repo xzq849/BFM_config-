@@ -1,13 +1,19 @@
 # Box for Root config
 
-1.配置文件在box/clash/config.yaml
-2.🔗yacd.haishan.me🔗管理界面
-3.中途更改配置很有可能出错（包括无法进管理界面yacd.haishan.me），重启或者尝试删除日志文件即可
+<br>1.配置文件在box/clash/config.yaml<br>
+<br>2.🔗yacd.haishan.me🔗管理界面<br>
+<br>3.中途更改配置很有可能出错（包括无法进管理界面yacd.haishan.me），重启或者尝试删除日志文件即可<br>
 
 
 # 更新记录
 <br>v1.0 可以运行<br>
 <br>v2.0 初步解决了dns泄露问题<br>
+
+
+# 一些问题
+<br>关于v1.0和v2.0<br>
+<br>1.关闭后再次开启会报错，删除日志可以正常进入，但是无法进入管理界面<br>
+<br>暂时解决方案：重启手机自动运行的这一次可以正常使用<br>
 
 
 
