@@ -1,12 +1,15 @@
 # Box for Root config
 
-配置文件在box/clash/config.yaml
+1.配置文件在box/clash/config.yaml
+2.🔗yacd.haishan.me🔗管理界面
+3.中途更改配置很有可能出错（包括无法进管理界面yacd.haishan.me），重启或者尝试删除日志文件即可
 
 
-🔗yacd.haishan.me🔗管理界面
+# 更新记录
+<br>v1.0 可以运行<br>
+<br>v2.0 初步解决了dns泄露问题<br>
 
 
-中途更改配置很有可能出错（包括无法进管理界面yacd.haishan.me），重启或者尝试删除日志文件即可
 
 [![ID](https://img.shields.io/badge/id-blue.svg?style=for-the-badge)](docs/index_id.md) [![EN](https://img.shields.io/badge/en-blue.svg?style=for-the-badge)](docs/index_en.md) [![CN](https://img.shields.io/badge/cn-blue.svg?style=for-the-badge)](docs/index_cn.md)
 
