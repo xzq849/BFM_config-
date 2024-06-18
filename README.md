@@ -3,6 +3,11 @@
 配置文件在box/clash/config.yaml
 
 
+🔗yacd.haishan.me🔗管理界面
+
+
+
+
 [![ID](https://img.shields.io/badge/id-blue.svg?style=for-the-badge)](docs/index_id.md) [![EN](https://img.shields.io/badge/en-blue.svg?style=for-the-badge)](docs/index_en.md) [![CN](https://img.shields.io/badge/cn-blue.svg?style=for-the-badge)](docs/index_cn.md)
 
 <h1 align="center">
