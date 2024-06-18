@@ -12,7 +12,12 @@
 
 <h1 align="center">
   <img src="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/releases/download/v1.0/like.this.jpg" alt="BOX" width="200">
-  <br>BOX config<br>
+  <br>如图所示，如果自动下载出现问题可以试试<br>
+</h1>
+
+<h1 align="center">
+  <img src="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/releases/download/v2.0/test.jpg" alt="BOX" width="200">
+  <br>测试对比结果<br>
 </h1>
 <h4 align="center">Transparent Proxy for Android(root)</h4>
 
