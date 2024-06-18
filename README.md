@@ -11,8 +11,8 @@
 [![ID](https://img.shields.io/badge/id-blue.svg?style=for-the-badge)](docs/index_id.md) [![EN](https://img.shields.io/badge/en-blue.svg?style=for-the-badge)](docs/index_en.md) [![CN](https://img.shields.io/badge/cn-blue.svg?style=for-the-badge)](docs/index_cn.md)
 
 <h1 align="center">
-  <img src="https://github.com/taamarin/box_for_magisk/blob/master/docs/box.svg" alt="BOX" width="200">
-  <br>BOX<br>
+  <img src="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/releases/download/v1.0/like.this.jpg" alt="BOX" width="200">
+  <br>BOX config<br>
 </h1>
 <h4 align="center">Transparent Proxy for Android(root)</h4>
 
