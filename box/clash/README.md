@@ -1,8 +1,2 @@
-
-########################
-example configuration / documentation
-########################
-
-~[clash premium documentation](http://dreamacro.github.io/clash/)~
-
-[mihomo documentation](https://wiki.metacubex.one/)
+欢迎使用本配置
+本配置使用了项目https://github.com/Loyalsoldier/clash-rules的规则
