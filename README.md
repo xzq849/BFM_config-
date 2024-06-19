@@ -1,7 +1,7 @@
 # Box for Root config
 
 
-<br>快来检测一下你DNS泄露了没有<br>
+<br>检测DNS泄露情况<br>
 <br>https://www.browserscan.net/zh/dns-leak<br>
 
 <br>1.配置文件在box/clash/config.yaml<br>
@@ -11,13 +11,10 @@
 
 # 更新记录
 <br>v1.0 可以运行<br>
-<br>v2.0 初步解决了dns泄露问题<br>
+<br>v2.0 初步解决了DNS泄露问题<br>
+<br>v3.0 重新排布拉了一下并且删除多余部分<br>
 
-
-# 一些问题
-<br>关于v1.0和v2.0<br>
-<br>1.关闭后再次开启会报错，删除日志可以正常进入，但是无法进入管理界面<br>
-<br>暂时解决方案：重启手机自动运行的这一次可以正常使用或者在管理界面选择直连即可<br>
+<br>先刷入模块，然后替换config重启，在管理器中查看和管理<br>
 
 
 
