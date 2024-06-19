@@ -4,9 +4,6 @@
 <br>检测DNS泄露情况<br>
 <br>https://www.browserscan.net/zh/dns-leak<br>
 
-<br>1.配置文件在box/clash/config.yaml<br>
-<br>2.🔗<br>yacd.haishan.me<br>🔗管理界面<br>
-<br>3.中途更改配置很有可能出错（包括无法进管理界面yacd.haishan.me），重启或者尝试删除日志文件即可<br>
 
 
 # 更新记录
