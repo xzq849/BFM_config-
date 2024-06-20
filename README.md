@@ -12,7 +12,7 @@
 <br>https://www.browserscan.net/zh/dns-leak<br>
 <p align="center">
     <a href="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml">
-    <img src="https://github.com/zhanyeye/clash-rules-lite/actions/workflows/release.yml](https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml)/badge.svg" />
+    <img src="https://github.com/LIghtJUNction/CONFIG_RULE_DIY/actions/workflows/click%20me(config).yml/badge.svg" />
     </a>
     <h1>点击此处立刻跳转至config.yaml</h1>
 </p>
