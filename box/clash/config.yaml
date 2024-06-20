@@ -756,7 +756,7 @@ rules:
 
   # 特定网站集合                                                                    # 3
   - GEOSITE,ai,🔰 环大陆  #采用 blackmatrix7/ios_rule_script/OpenAI、blackmatrix7/ios_rule_script/Copilot、blackmatrix7/ios_rule_script/Gemini 和 blackmatrix7/ios_rule_script/Claude 组合  
-  - GEOSITE,networktest,📈 网络测试  # 📈 网络测试 这个代理组应当可以选择本地网络测试 和 代理网速测试
+  - GEOSITE,networktest,📈 网络测试  # 📈 网络测试 这个代理组用来检测网络质量 keyword   ipv6-test   test-ipv6   ipv6test   testipv6
   - RULE-SET,telegramcidr,📲 电报消息 # 13 tg使用的域名选择代理
   - RULE-SET,icloud,🔰 iCluad # 6 icloud域名
 
@@ -798,10 +798,11 @@ rules:
   # 一般需要代理的网站                                       # 4
   
   - RULE-SET,google,🔰 环大陆 # 8 google在国内可直连建议代理除非缺流量  
-  - RULE-SET,proxy,🔰 需要代理的网站 # 9 需要代理的网站
-  - GEOSITE,geolocation-!cn,🔰 需要代理的网站
-  - GEOSITE,proxy,🌏 快速选择代理  
+  - RULE-SET,proxy,🌏 快速选择代理   # 9 需要代理的网站
 
+  
+  - GEOSITE,geolocation-!cn,🌏 快速选择代理  
+  - GEOSITE,proxy,🌏 快速选择代理  
     ##########################################################
 
   # 低优先度 匹配·漏网之鱼               
