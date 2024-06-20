@@ -8,7 +8,7 @@ on:
         required: true
       branch:
         description: 'Push Changes'
-        required: true
+        required: false
 
 jobs:
   build:
