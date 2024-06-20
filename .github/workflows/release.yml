@@ -31,6 +31,10 @@ jobs:
       - name: run build.sh
         run: |
           sh build.sh
+          COMPRESSED_FILE_NAME=$(sh build.sh | grep 'Compressed file name:' | awk '{print $3}')
+          - name: Run build.sh and capture output
+          echo "Compressed file name is: ${{ steps.build_step.outputs.compressed_file_name }}"
+
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
