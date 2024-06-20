@@ -26,7 +26,7 @@
 <br>先刷入模块，然后替换config重启，在管理器中查看和管理<br>
 
 # 为什么创建这个项目
-<br>每次打开手机Gemini语音助手显示你当前地区不支持，让我很烦，官方配置功能又不能满足我的要求。于是我花了一下午开始自己编写，顺便发布出来给有相同需求的人使用，如果你还有什么好点子欢迎提出。规则来自另一个项目<br>https://github.com/Loyalsoldier/clash-rules<br> <br>
+<br>每次打开手机Gemini语音助手显示你当前地区不支持，让我很烦，官方配置功能又不能满足我的要求。于是我花了一下午开始自己编写，顺便发布出来给有相同需求的人使用，如果你还有什么好点子欢迎提出。规则来自另一个项目
 
 [![ID](https://img.shields.io/badge/id-blue.svg?style=for-the-badge)](docs/index_id.md) [![EN](https://img.shields.io/badge/en-blue.svg?style=for-the-badge)](docs/index_en.md) [![CN](https://img.shields.io/badge/cn-blue.svg?style=for-the-badge)](docs/index_cn.md)
 
