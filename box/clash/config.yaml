@@ -40,7 +40,7 @@ mode: rule  # rule（默认） global（需要在GLOBAL策略组选择）direct
 log-level: debug
 global-client-fingerprint: random # 随机指纹 （全局客户端指纹）
 geodata-loader: standard # memconservative（小内存）
-find-process-mode: strict  # 控制是否让 Clash 去匹配进程 always 开启，强制匹配所有进程strict 默认，由 Clash 判断是否开启off 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: strict
 bind-address: '*'
 # host
       
@@ -116,7 +116,7 @@ dns:   # 通过修改此处解决DNS泄露问题
     - https://223.5.5.5/dns-query 
   #  - 223.6.6.6
    # - tcp://119.29.29.29
-   # - tcp://223.6.6.6
+   # - tcp://223.6.6.6 
   proxy-server-nameserver:
   #  - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
@@ -146,7 +146,12 @@ dns:   # 通过修改此处解决DNS泄露问题
     geoip: true
     geoip-code: CN
     geosite:
-      - gfw
+      - ai
+      - tiktok
+      - youtube
+      - appletv
+      - primevideo
+      
     ipcidr:
       - 240.0.0.0/4
     domain:
@@ -204,7 +209,7 @@ profile:
 
 # https://github.com/Loyalsoldier/v2ray-rules-dat 的复刻 https://github.com/DustinWin/ruleset_geodata 
 geox-url:
-  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@sing-box/geoip.db"
+  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geoip-all.dat"
   geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geosite-all.dat"
   mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/Country.mmdb"
 
@@ -231,7 +236,7 @@ proxy-groups:
   - name: 🌏 快速选择代理
     type: select
     proxies:
-      - 🇭🇰 选择香港节点                      # 这些代理组在后面定义了
+      - 🇭🇰 选择香港节点                    
       - 🇺🇲 选择美国节点
       - 🇯🇵 选择日本节点
       - 🇦🇺 选择澳大利亚节点  
@@ -334,15 +339,12 @@ proxy-groups:
       - 🎵 TikTok
       - 🤖 人工智能
       - 🍎 Apple TV+ 
-      - 🔒 私有网络
       - 🇬 谷歌服务
       - 🎮 游戏服务
       - 🎥 奈飞视频
       - 📽️ 迪士尼+
       - 🎞️ Max
       - 🎬 Prime Video
-      - 
-      
       - REJECT
       - DIRECT
       - temp_1
@@ -434,6 +436,8 @@ proxy-groups:
       - temp_2
       - temp_3      
       - DIRECT 
+      
+      
   - name: 🔰 iCluad
     type: select
     proxies:
@@ -459,20 +463,8 @@ proxy-groups:
       - temp_1
       - temp_2
       - temp_3
-
       
-  - name: 🔰 国内网站 # 自定义 国内域名 对应 中国大陆 IP 地址列表
-    type: select
-    proxies:
-      - DIRECT
-      - REJECT
-      - 🌏 快速选择代理
-      - 🔰 环大陆
-      - temp_1
-      - temp_2
-      - temp_3  
-
-    - name: 🔰 BING # 自定义 国内域名 对应 中国大陆 IP 地址列表
+  - name: 🔰 BING # 自定义 国内域名 对应 中国大陆 IP 地址列表
     type: select
     proxies:
       - DIRECT
@@ -482,6 +474,7 @@ proxy-groups:
       - temp_2
       - temp_3  
       - REJECT
+        
   - name: 🔰 广告 # 对应广告域名列表
     type: select
     proxies:
@@ -492,9 +485,22 @@ proxy-groups:
       - temp_1
       - temp_2
       - temp_3
+      
+  - name: 🔰 国内网站 
+    type: select
+    proxies:
+      - DIRECT
+      - REJECT
+      - 🌏 快速选择代理
+      - 🔰 环大陆
+      - temp_1
+      - temp_2
+      - temp_3  
+            
 
   - name: 🔒 私有网络
     type: select
+    proxies:
       - DIRECT
   
   - name: 🌏 规则之外
@@ -840,7 +846,6 @@ rules:
   - RULE-SET,telegramcidr,📲 电报消息 # 13 tg使用的域名选择代理
   - RULE-SET,icloud,🔰 iCluad # 6 icloud域名
   - RULE-SET,bing,🔰 BING 
-  - GEOSITE,onedrive,🌏 快速选择代理
   - GEOSITE,games-cn,🎮 游戏服务
   - GEOSITE,netflix,🎥 奈飞视频
   - GEOIP,telegram,📲 电报消息
@@ -878,7 +883,6 @@ rules:
   - RULE-SET,proxy,🌏 快速选择代理   # 9 需要代理的网站
 
   
-  - GEOSITE,geolocation-!cn,🌏 快速选择代理  
   - GEOSITE,proxy,🌏 快速选择代理  
     ##########################################################
 
