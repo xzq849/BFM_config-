@@ -761,7 +761,7 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
     path: ./ruleset/bing.yaml
     interval: 86400
 
-# 接下来添加DIY_rule 
+# 接下来添加DIY_rule  # https://github.com/LIghtJUNction/CONFIG_RULE_DIY
 #  DIY-XXXX: # DIY 规则
 #    type: http
 #    behavior: classical
