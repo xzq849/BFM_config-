@@ -36,7 +36,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.tag }}
-          files: box_for_root_v*.zip
+          files: BoxForRootAlpah-v*.zip
           generate_release_notes: true
 
       
