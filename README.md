@@ -3,7 +3,11 @@
 
 <br>检测DNS泄露情况<br>
 <br>https://www.browserscan.net/zh/dns-leak<br>
-
+<p align="center">
+    <a href="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml">
+    <img src="[https://github.com/zhanyeye/clash-rules-lite/actions/workflows/release.yml](https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml)/badge.svg" />
+    </a>
+</p>
 
 
 # 更新记录
