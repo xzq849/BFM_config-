@@ -754,7 +754,7 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
     path: ./ruleset/applications.yaml
     interval: 86400
 # 接下来添加xkww3n's Rules https://rules.xkww3n.cyou/
-  bing: # 需要直连的常见软件列表
+  bing: # bing
     type: http
     behavior: classical
     url: "https://rules.xkww3n.cyou/yaml/bing.yaml"
@@ -762,7 +762,40 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
     interval: 86400
 
 # 接下来添加DIY_rule 
+#  DIY-XXXX: # DIY 规则
+#    type: http
+#    behavior: classical
+#    url: "仓库/DIY-XXXX.XXX"
+#    path: ./ruleset/DIY-XXXX.yaml
+#    interval: 86400
 
+#  DIY-XXXX: # DIY 规则
+#    type: http
+#    behavior: classical
+#    url: "仓库/DIY-XXXX.XXX"
+#    path: ./ruleset/DIY-XXXX.yaml
+#    interval: 86400
+
+#  DIY-XXXX: # DIY 规则
+#    type: http
+#    behavior: classical
+#    url: "仓库/DIY-XXXX.XXX"
+#    path: ./ruleset/DIY-XXXX.yaml
+#    interval: 86400
+
+#  DIY-XXXX: # DIY 规则
+#    type: http
+#    behavior: classical
+#    url: "仓库/DIY-XXXX.XXX"
+#    path: ./ruleset/DIY-XXXX.yaml
+#    interval: 86400
+
+#  DIY-XXXX: # DIY 规则
+#    type: http
+#    behavior: classical
+#    url: "仓库/DIY-XXXX.XXX"
+#    path: ./ruleset/DIY-XXXX.yaml
+#    interval: 86400
 
 # 规则提供者在上
 
@@ -792,9 +825,12 @@ rules:
   - DST-PORT,123/136/137-139,DIRECT,udp
 
   # 自定义规则 高优先度                                                                 # 2
-  
-
-
+# - RULE-SET,DIY-XXXX,XXXX
+# - RULE-SET,DIY-XXXX,XXXX
+# - RULE-SET,DIY-XXXX,XXXX
+# - RULE-SET,DIY-XXXX,XXXX
+# - RULE-SET,DIY-XXXX,XXXX
+# - RULE-SET,DIY-XXXX,XXXX
   # 自定义结束
 
 
