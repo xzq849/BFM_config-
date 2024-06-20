@@ -1,5 +1,5 @@
 # Box for Root config
-
+<h1>检测DNS泄露情况</h1>
 
 <br>检测DNS泄露情况<br>
 <br>https://www.browserscan.net/zh/dns-leak<br>
