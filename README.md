@@ -5,7 +5,7 @@
 <br>https://www.browserscan.net/zh/dns-leak<br>
 <p align="center">
     <a href="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml">
-    <img src="[https://github.com/zhanyeye/clash-rules-lite/actions/workflows/release.yml](https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml)/badge.svg" />
+    <img src="https://github.com/zhanyeye/clash-rules-lite/actions/workflows/release.yml](https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml)/badge.svg" />
     </a>
 </p>
 
@@ -33,14 +33,6 @@
 </h1>
 <h4 align="center">Transparent Proxy for Android(root)</h4>
 
-<div align="center">
-
-[![android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)]()
-[![releases](https://img.shields.io/github/downloads/taamarin/box_for_magisk/total.svg?style=for-the-badge)](https://github.com/taamarin/box_for_magisk/releases)
-
-</div>
-
-This project is a [Magisk](https://github.com/topjohnwu/Magisk), [KernelSU](https://github.com/tiann/KernelSU), [APatch](https://github.com/bmax121/APatch) module which includes `clash`, `sing-box`, `v2ray` and `xray` proxies.
 
 ## Apk Manager
 BFR Manager [Download](https://github.com/taamarin/box.manager) optional
