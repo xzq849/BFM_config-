@@ -2,7 +2,7 @@
 <h1>快速介绍</h1>
 <h2>clash_meta的配置文件 支持box for magisk 使用</h2>
 <br>规则集来源<br>https://github.com/xkww3n/Rules<br><br><br>每天12：00更新</br>
-<br>规则集来源<br>[https://github.com/xkww3n/Rules](https://github.com/Loyalsoldier/clash-rules)<br><br> <br>每天6：30更新</br>
+<br>规则集来源<br>https://github.com/xkww3n/Rules](https://github.com/Loyalsoldier/clash-rules<br><br> <br>每天6：30更新</br>
 
 <br>规则集来源<br>[https://github.com/xkww3n/Rules](https://github.com/DustinWin/ruleset_geodata?tab=readme-ov-file)<br><br> <br>每天2：00更新</br>
 
