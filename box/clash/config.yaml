@@ -765,35 +765,35 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
 #  DIY-XXXX: # DIY 规则
 #    type: http
 #    behavior: classical
-#    url: "仓库/DIY-XXXX.XXX"
+#    url: "https://cdn.jsdelivr.net/gh/LIghtJUNction/CONFIG_RULE_DIY@release/DIY-XXXX.txt"
 #    path: ./ruleset/DIY-XXXX.yaml
 #    interval: 86400
 
 #  DIY-XXXX: # DIY 规则
 #    type: http
 #    behavior: classical
-#    url: "仓库/DIY-XXXX.XXX"
+#    url: "https://cdn.jsdelivr.net/gh/LIghtJUNction/CONFIG_RULE_DIY@release/DIY-XXXX.txt"
 #    path: ./ruleset/DIY-XXXX.yaml
 #    interval: 86400
 
 #  DIY-XXXX: # DIY 规则
 #    type: http
 #    behavior: classical
-#    url: "仓库/DIY-XXXX.XXX"
+#    url: "https://cdn.jsdelivr.net/gh/LIghtJUNction/CONFIG_RULE_DIY@release/DIY-XXXX.txt"
 #    path: ./ruleset/DIY-XXXX.yaml
 #    interval: 86400
 
 #  DIY-XXXX: # DIY 规则
 #    type: http
 #    behavior: classical
-#    url: "仓库/DIY-XXXX.XXX"
+#    url: "https://cdn.jsdelivr.net/gh/LIghtJUNction/CONFIG_RULE_DIY@release/DIY-XXXX.txt"
 #    path: ./ruleset/DIY-XXXX.yaml
 #    interval: 86400
 
 #  DIY-XXXX: # DIY 规则
 #    type: http
 #    behavior: classical
-#    url: "仓库/DIY-XXXX.XXX"
+#    url: "https://cdn.jsdelivr.net/gh/LIghtJUNction/CONFIG_RULE_DIY@release/DIY-XXXX.txt"
 #    path: ./ruleset/DIY-XXXX.yaml
 #    interval: 86400
 
