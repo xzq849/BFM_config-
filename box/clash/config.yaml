@@ -110,8 +110,8 @@ dns:   # 通过修改此处解决DNS泄露问题
  #   - 'tls://[2001:4860:4860::8844]#dns'
  #   - 'tls://[2606:4700:4700::1001]#dns'
   default-nameserver:
-    - 119.29.29.29
-    - 223.5.5.5
+   # - 119.29.29.29
+   # - 223.5.5.5
     - tls://223.5.5.5   
     - https://223.5.5.5/dns-query 
   #  - 223.6.6.6
@@ -231,10 +231,10 @@ proxy-groups:
   - name: 🌏 快速选择代理
     type: select
     proxies:
-      - 🇭🇰 选择香港节点
+      - 🇭🇰 选择香港节点                      # 这些代理组在后面定义了
       - 🇺🇲 选择美国节点
       - 🇯🇵 选择日本节点
-      - 🇦🇺 选择澳大利亚节点  # 这些代理组在后面定义了
+      - 🇦🇺 选择澳大利亚节点  
       - 🇺🇦 选择乌克兰节点
       - 🇨🇳 选择台湾节点  
       - 🇸🇬 选择新加坡节点
@@ -290,9 +290,32 @@ proxy-groups:
   - name: 😺 GITHB
     type: select
     proxies:
-      - 🇯🇵 选择日本节点
       - 🔰 环大陆
       - 🌏 快速选择代理
+      - 🇭🇰 选择香港节点                      # 这些代理组在后面定义了
+      - 🇺🇲 选择美国节点
+      - 🇯🇵 选择日本节点
+      - 🇦🇺 选择澳大利亚节点  
+      - 🇺🇦 选择乌克兰节点
+      - 🇨🇳 选择台湾节点  
+      - 🇸🇬 选择新加坡节点
+      - 🇬🇧 选择英国节点
+      - 🇦🇷 选择阿根廷节点
+      - 🇷🇺 选择俄罗斯节点
+      - 🇹🇷 选择土耳其节点
+      - 🇰🇷 选择韩国节点
+      - 🇮🇳 选择印度节点
+      - 🇩🇪 选择德国节点
+      - 🇨🇦 选择加拿大节点
+      - 🇫🇷 选择法国节点
+      - REJECT
+      - DIRECT
+      - temp_1
+      - temp_2
+      - temp_3   
+
+
+
 
   - name: 🤖 人工智能
     type: select
@@ -354,38 +377,47 @@ proxy-groups:
     type: select
     proxies:
       - 🌏 快速选择代理
+      - 🔰 环大陆
 
   - name: 🇬 谷歌服务
     type: select
     proxies:
       - 🌏 快速选择代理
+      - 🔰 环大陆
       
 
   - name: 🎮 游戏服务
     type: select
     proxies:
       - 🌏 快速选择代理
+      - 🔰 环大陆
+      - DIRECT
+    #  - 下载专用代理组
 
   - name: 🎥 奈飞视频
     type: select
     proxies:
       - 🌏 快速选择代理
+      - 🔰 环大陆
 
   - name: 📽️ 迪士尼+
     type: select
     proxies: 
       - 🌏 快速选择代理
+      - 🔰 环大陆
      
     
   - name: 🎞️ Max
     type: select
     proxies:  
       - 🌏 快速选择代理
+      - 🔰 环大陆
     
   - name: 🎬 Prime Video
     type: select
     proxies:
       - 🌏 快速选择代理
+      - 🔰 环大陆
 
 ##
 
@@ -396,13 +428,12 @@ proxy-groups:
     type: select
     proxies:
       - 🌏 快速选择代理
-      - 🇭🇰 选择香港节点
+      - 🔰 环大陆
       - REJECT
-      - DIRECT    
       - temp_1
       - temp_2
       - temp_3      
-      
+      - DIRECT 
   - name: 🔰 iCluad
     type: select
     proxies:
@@ -436,19 +467,27 @@ proxy-groups:
       - DIRECT
       - REJECT
       - 🌏 快速选择代理
-      - 🇭🇰 选择香港节点
-      - 🇨🇳 选择台湾节点 
+      - 🔰 环大陆
       - temp_1
       - temp_2
       - temp_3  
 
-
-
+    - name: 🔰 BING # 自定义 国内域名 对应 中国大陆 IP 地址列表
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰 环大陆
+      - 🌏 快速选择代理
+      - temp_1
+      - temp_2
+      - temp_3  
+      - REJECT
   - name: 🔰 广告 # 对应广告域名列表
     type: select
     proxies:
       - REJECT
       - 🌏 快速选择代理
+      - 🔰 环大陆
       - DIRECT
       - temp_1
       - temp_2
@@ -462,6 +501,7 @@ proxy-groups:
     type: select
     proxies:
       - 🌏 快速选择代理
+      - 🔰 环大陆
       - REJECT
       - DIRECT
       - temp_1
@@ -713,16 +753,20 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
     url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
     path: ./ruleset/applications.yaml
     interval: 86400
-# 接下来添加xkww3n's Rules
-
+# 接下来添加xkww3n's Rules https://rules.xkww3n.cyou/
+  bing: # 需要直连的常见软件列表
+    type: http
+    behavior: classical
+    url: "https://rules.xkww3n.cyou/yaml/bing.yaml"
+    path: ./ruleset/bing.yaml
+    interval: 86400
 
 # 接下来添加DIY_rule 
 
 
 # 规则提供者在上
 
-# dns泄露未解决
-# 一个小时后我给解决了
+
 # v2.1调整了一下顺序
 # v2.2移除了Geo-xx 的代理组，感觉有点多余了（原本想的是按国家去匹配漏网之鱼）
 # v2.2添加了 geodata-loader: standard
@@ -759,10 +803,7 @@ rules:
   - GEOSITE,networktest,📈 网络测试  # 📈 网络测试 这个代理组用来检测网络质量 keyword   ipv6-test   test-ipv6   ipv6test   testipv6
   - RULE-SET,telegramcidr,📲 电报消息 # 13 tg使用的域名选择代理
   - RULE-SET,icloud,🔰 iCluad # 6 icloud域名
-
-
-
-  - GEOSITE,steam,🌏 快速选择代理
+  - RULE-SET,bing,🔰 BING 
   - GEOSITE,onedrive,🌏 快速选择代理
   - GEOSITE,games-cn,🎮 游戏服务
   - GEOSITE,netflix,🎥 奈飞视频
