@@ -1,11 +1,10 @@
 # Box for Root config
 <h1>快速介绍</h1>
 <h2>clash_meta的配置文件 支持box for magisk 使用</h2>
-<br>规则集来源<br>https://github.com/xkww3n/Rules<br><br><br>每天12：00更新</br>
-<br>规则集来源<br>https://github.com/xkww3n/Rules](https://github.com/Loyalsoldier/clash-rules<br><br> <br>每天6：30更新</br>
-
-<br>规则集来源<br>[https://github.com/xkww3n/Rules](https://github.com/DustinWin/ruleset_geodata?tab=readme-ov-file)<br><br> <br>每天2：00更新</br>
-
+<br>副规则集来源<br>https://github.com/xkww3n/Rules<br><br><br>每天12：00更新</br>
+<br>主要ruleset来源<br>https://github.com/Loyalsoldier/clash-rules<br><br> <br>每天6：30更新</br>
+<br>Geo数据库来源<br>https://github.com/DustinWin/ruleset_geodata?tab=readme-ov-file<br><br> <br>每天2：00更新</br>
+DIY规则在我右上角的DIY规则库里，正在施工中
 
 
 <br>检测DNS泄露情况<br>
