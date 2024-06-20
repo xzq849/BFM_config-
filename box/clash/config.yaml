@@ -251,7 +251,7 @@ proxy-groups:
       - temp_1
       - temp_2
       - temp_3     
-
+  
 
   - name: 🔰 环大陆   # 自定义 环大陆域名 对应google在国内可直连域名  这个选项适合环大陆的ai模型
     type: select
@@ -277,7 +277,11 @@ proxy-groups:
       - temp_2
       - temp_3  
 
-
+  - name: 🤖 人工智能
+    type: select
+    proxies:
+      - 🔰 环大陆
+      - 🌏 快速选择代理
 
   - name: 📈 网络测试
     type: select
@@ -290,7 +294,6 @@ proxy-groups:
       - 🎵 TikTok
       - 🤖 人工智能
       - 🍎 Apple TV+ 
-      - 🛑 广告拦截
       - 🔒 私有网络
       - 🇬 谷歌服务
       - 🎮 游戏服务
@@ -299,15 +302,80 @@ proxy-groups:
       - 🎞️ Max
       - 🎬 Prime Video
       - 
+      
       - REJECT
       - DIRECT
       - temp_1
       - temp_2
       - temp_3 
+
+  - name: 📺 哔哩哔哩
+    type: select
+    proxies:
+      - DIRECT
+      - 🌏 快速选择代理
+
+
+  - name: 🍎 苹果服务   # 这是cn可直连的
+    type: select
+    proxies:  
+      - DIRECT
+      - 🌏 快速选择代理
+    
+  - name: 📹 油管视频 
+    type: select
+    proxies:      
+      - 🌏 快速选择代理
+
+  - name: 🎵 TikTok
+    type: select
+    proxies:
+      - 🔰 环大陆
       
-  
       
-   - name: 🔰 纸飞机   # 对应Telegram 使用的 IP 地址列表
+  - name: 🍎 Apple TV+
+    type: select
+    proxies:
+      - 🌏 快速选择代理
+
+  - name: 🇬 谷歌服务
+    type: select
+    proxies:
+      - 🌏 快速选择代理
+      
+
+  - name: 🎮 游戏服务
+    type: select
+    proxies:
+      - 🌏 快速选择代理
+
+  - name: 🎥 奈飞视频
+    type: select
+    proxies:
+      - 🌏 快速选择代理
+
+  - name: 📽️ 迪士尼+
+    type: select
+    proxies: 
+      - 🌏 快速选择代理
+     
+    
+  - name: 🎞️ Max
+    type: select
+    proxies:  
+      - 🌏 快速选择代理
+    
+  - name: 🎬 Prime Video
+    type: select
+    proxies:
+      - 🌏 快速选择代理
+
+##
+
+##
+
+## 
+  - name: 📲 电报消息   # 对应Telegram 使用的 IP 地址列表
     type: select
     proxies:
       - 🌏 快速选择代理
@@ -317,8 +385,6 @@ proxy-groups:
       - temp_1
       - temp_2
       - temp_3      
-      
-
       
   - name: 🔰 iCluad
     type: select
@@ -371,7 +437,9 @@ proxy-groups:
       - temp_2
       - temp_3
 
-
+  - name: 🔒 私有网络
+    type: select
+      - DIRECT
   
   - name: 🌏 规则之外
     type: select
@@ -631,7 +699,6 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
 # 接下来添加xkww3n's Rules
 
 
-
 # 接下来添加DIY_rule 
 
 
@@ -664,7 +731,7 @@ rules:
   - DST-PORT,123/136/137-139,DIRECT,udp
 
   # 自定义规则 高优先度                                                                 # 2
-
+  
 
 
   # 自定义结束
@@ -673,7 +740,7 @@ rules:
   # 特定网站集合                                                                    # 3
   - GEOSITE,ai,🔰 环大陆  #采用 blackmatrix7/ios_rule_script/OpenAI、blackmatrix7/ios_rule_script/Copilot、blackmatrix7/ios_rule_script/Gemini 和 blackmatrix7/ios_rule_script/Claude 组合  
   - GEOSITE,networktest,📈 网络测试  # 📈 网络测试 这个代理组应当可以选择本地网络测试 和 代理网速测试
-  - RULE-SET,telegramcidr,🔰 纸飞机 # 13 tg使用的域名选择代理
+  - RULE-SET,telegramcidr,📲 电报消息 # 13 tg使用的域名选择代理
   - RULE-SET,icloud,🔰 iCluad # 6 icloud域名
 
 
@@ -687,9 +754,9 @@ rules:
   - GEOSITE,max,🎞️ Max
   - GEOSITE,primevideo,🎬 Prime Video
   - GEOSITE,appletv,🍎 Apple TV+
-  - GEOSITE,apple-cn,🔰 Apple(可直连域名) # 7 apple在国内可直连域名 
-  - RULE-SET,apple,🔰 Apple(可直连域名) 
-  - GEOSITE,google-cn,🇬 谷歌服务
+  - GEOSITE,apple-cn,🍎 苹果服务 # 7 apple在国内可直连域名 
+  - RULE-SET,apple,🍎 苹果服务  
+  - GEOSITE,google-cn,🇬 谷歌服务 #建议走代理
   - GEOSITE,youtube,📹 油管视频
   - GEOSITE,tiktok,🎵 TikTok
   - GEOSITE,bilibili,📺 哔哩哔哩
