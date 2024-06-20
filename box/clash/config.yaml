@@ -12,9 +12,10 @@ proxy-providers:
       enable: true
       url: http://www.gstatic.com/generate_204
       interval: 3600
+
       
- # “myclash_2”
-  # ...
+# “myclash_2”
+# ...
 # 代理提供者在上############################################
 
 # 配置组一             端口类
@@ -276,6 +277,22 @@ proxy-groups:
       - temp_1
       - temp_2
       - temp_3  
+
+# -  name: 下载专用代理组
+  #  type:select
+  #  ues:
+  #    - 'myclash'
+  #  filter: '下载'
+  #  proxies:
+  #    - 🌏 快速选择代理
+  #    - REJECT # 流量少不想下载
+        
+  - name: 😺 GITHB
+    type: select
+    proxies:
+      - 🇯🇵 选择日本节点
+      - 🔰 环大陆
+      - 🌏 快速选择代理
 
   - name: 🤖 人工智能
     type: select
