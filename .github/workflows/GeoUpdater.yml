@@ -1,0 +1,143 @@
+name: Build geodata
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 18 * * *"
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "**/README.md"
+      - ".github/workflows/delete-old-workflows.yml"
+      - ".github/workflows/config.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set variables
+        run: |
+          echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
+          echo "domains_download_url=https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains" >> ${GITHUB_ENV}
+          echo "ips_download_url=https://raw.githubusercontent.com/DustinWin/geoip/ips" >> ${GITHUB_ENV}          
+        shell: bash
+
+      - name: Clone Repository
+        uses: actions/checkout@master
+
+      - name: Checkout DustinWin/domain-list-custom
+        uses: actions/checkout@v4
+        with:
+          repository: DustinWin/domain-list-custom
+          path: custom
+
+      - name: Checkout v2fly/domain-list-community
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/domain-list-community
+          path: community
+
+      - name: Checkout DustinWin/geoip
+        uses: actions/checkout@v4
+        with:
+          repository: DustinWin/geoip
+          ref: clash
+          path: geoip/clash
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ./custom/go.mod
+          cache-dependency-path: ./custom/go.sum
+
+      - name: Generate `clash` geodata
+        run: |
+          mkdir -p ./community/mydata/
+          archs1=(ads private microsoft-cn apple-cn google-cn games-cn ai networktest netflix disney max primevideo appletv youtube tiktok bilibili proxy cn)
+          archs2=(ads private microsoft-cn apple-cn google-cn games-cn ai networktest proxy cn)
+
+          # Generate `clash` geosite-all.dat
+          for ((i = 0; i < 18; i++)); do
+            curl -sSL "${domains_download_url}/${archs1[i]}.list" | grep -Ev 'DOMAIN-REGEX,|PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' > "./community/mydata/${archs1[i]}"
+          done
+          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./community/mydata/fakeip-filter
+          cd ./community/
+          go run ./ --datapath=./mydata/ --outputname geosite-all-sing-box.dat
+          rm -f ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite-all.dat
+
+          # Generate `clash` geosite-all-lite.dat
+          rm -f ./mydata/ads
+          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite-all-lite-sing-box.dat
+          rm -f ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite-all-lite.dat
+
+          # Generate `clash` geosite.dat
+          rm -f ./mydata/*
+          for ((i = 0; i < 10; i++)); do
+            curl -sSL "${domains_download_url}/${archs2[i]}.list" | grep -Ev 'DOMAIN-REGEX,|PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' > "./mydata/${archs2[i]}"
+          done
+          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite-sing-box.dat
+          rm -f ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite.dat
+
+          # Generate `clash` geosite-lite.dat
+          rm -f ./mydata/ads
+          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite-lite-sing-box.dat
+          rm -f ./mydata/fakeip-filter
+          go run ./ --datapath=./mydata/ --outputname geosite-lite.dat
+
+
+      - name: Get geoip relative files
+        run: |
+          mkdir -p ./clash/ ./sing-box/
+          mv -f ./geoip/clash/*.mmdb ./clash/
+          mv -f ./geoip/clash/* ./community/
+          rm -rf ./geoip*
+
+      - name: Move `clash` geodata files
+        run: |
+          cd ./community/ || exit 1
+          for file in $(ls *.dat *.metadb); do
+            install -Dp "./${file}" ../clash/
+          done
+          
+          rm -rf ../custom* ../community*
+
+
+      - name: Release and upload `clash` assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: clash
+          tag: clash
+          overwrite: true # here
+          body: "[Clash](https://github.com/Dreamacro/clash) 规则集文件（包含 .dat、.mmdb 和 .metadb 文件）"
+          file_glob: true
+          file: ./clash/*
+
+      - name: Git push assets to "clash" branch
+        run: |
+          cd ./clash/ || exit 1
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b clash
+          git add .
+          git commit -m "Clash ruleset_geodata 文件更新于 ${update_version}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f -u origin clash
+
+      - name: Purge jsDelivr CDN
+        run: |
+          cd ./clash/ || exit 1
+          for file in $(ls); do
+            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@clash/${file}"
+          done
+          cd ../clash-ruleset/ || exit 1
+          for file in $(ls); do
+            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@clash-ruleset/${file}"
+          
