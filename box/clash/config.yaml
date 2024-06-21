@@ -894,7 +894,7 @@ rules:
   # 一般需要代理的网站                                       # 4
   
   - RULE-SET,google,🔰 环大陆 # 8 google在国内可直连建议代理除非缺流量  
-  - RULE-SET,proxy,🌏 快速选择代理   # 9 需要代理的网站
+  - RULE-SET,proxy,🔰 环大陆   # 9 需要代理的网站 # assistant-s3-pa.googleapis.com:443
 
   
   - GEOSITE,proxy,🌏 快速选择代理  
