@@ -74,7 +74,7 @@ dns:   # 通过修改此处解决DNS泄露问题
     - '+.lan'
     - '+.local'
     - '+.leigod.com'
-    - '+.vivox.comhttps://09j7x.no-mad-world.club/link/skOvrtPuKo1ufvWi?clash=3&extend=1https://09j7x.no-mad-world.club/link/skOvrtPuKo1ufvWi?clash=3&extend=1necttest.com'
+    - '+.vivox.com'
     - '+.stun.+'
     - '.n.n.srv.nintendo.net'
     - '+.stun.playstation.net'
