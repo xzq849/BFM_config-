@@ -5,7 +5,7 @@
 proxy-providers:
   "myclash":
     type: http
-    path: ./provide/subscription.yaml
+    path: ./provide/myclash.yaml
     url: "你的订阅链接🔗"               # 此处填写订阅url
     interval: 3600
     health-check:
@@ -33,6 +33,8 @@ allow-lan: true
 tcp-concurrent: true
 unified-delay: true
 geodata-mode: true
+geo-auto-update: false # 是否自动更新 geodata
+geo-update-interval: 24 # 更新间隔，单位：小时
 keep-alive-interval: 1800  # 减少移动端设备耗电
 
 # 配置组三           选择类
@@ -84,7 +86,7 @@ dns:   # 通过修改此处解决DNS泄露问题
     - '*.mcdn.bilivideo.cn'
     - WORKGROUP
   
-  nameserver:    # 任务 找到里面的  加密  DNS服务器然后如法炮制！添加进来
+  nameserver:    # 主要
       - https://1.1.1.1/dns-query#🌏 快速选择代理
       - https://1.0.0.1/dns-query#🌏 快速选择代理
  #   - tls://dns.google:853
