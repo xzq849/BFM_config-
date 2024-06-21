@@ -1,6 +1,2 @@
-#### Changelog v1.5.1_config
-change config
-use my configV4.0
-1.添加规则
-2.修改代理组
-3.....
+#### Changelog v1.5.2_config
+修复了一个bug
