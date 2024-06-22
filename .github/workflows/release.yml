@@ -7,6 +7,45 @@ on:
         description: 'Release Tag'
         required: true
 jobs:
+  move-file:  
+    name: Move geodata from clash to master  
+    runs-on: ubuntu-latest  
+    steps:  
+      - name: Checkout clash branch  
+        uses: actions/checkout@v3  
+        with:  
+          ref: clash  
+          path: clash 
+            
+      - name: Checkout master branch  
+        uses: actions/checkout@v3  
+        with:  
+          ref: master  
+          path: master 
+  
+      - name: Copy file_site from clash to master  
+        run: |  
+          mkdir -p master/box/clash  
+          cp clash/geosite-all.dat master/box/clash/geosite.dat 
+          
+      - name: Copy file_ip from clash to master  
+        run: |  
+          
+          cp clash/geoip-all.dat master/box/clash/geoip-all.dat 
+          
+      - name: Copy file_Country from clash to master  
+        run: |  
+
+          cp clash/Country.mmdb master/box/clash/Country.mmdb 
+          
+      - name: Commit and push changes to master  
+        working-directory: master_branch  
+        run: |  
+          git config --global user.email "your-email@example.com"  
+          git config --global user.name "GitHub Actions"  
+          git add .  
+          git commit -m "Move geodata from clash to master as box/clash/~"  
+          git push origin master
   build:
     runs-on: ubuntu-latest
     steps:
