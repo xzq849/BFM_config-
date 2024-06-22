@@ -15,48 +15,49 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set variables
+      - name: Set variables # 1
         run: |
           echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
           echo "domains_download_url=https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains" >> ${GITHUB_ENV}
           echo "ips_download_url=https://raw.githubusercontent.com/DustinWin/geoip/ips" >> ${GITHUB_ENV}          
         shell: bash
 
-      - name: Clone Repository
+      - name: Clone Repository # 2
         uses: actions/checkout@master
 
-      - name: Checkout DustinWin/domain-list-custom
-        uses: actions/checkout@v4
+      - name: Checkout DustinWin/domain-list-custom  # 3
+         uses: actions/checkout@v4
         with:
           repository: DustinWin/domain-list-custom
           path: custom
 
-      - name: Checkout v2fly/domain-list-community
+      - name: Checkout v2fly/domain-list-community # 4
         uses: actions/checkout@v4
         with:
           repository: v2fly/domain-list-community
           path: community
 
-      - name: Checkout DustinWin/geoip
+      - name: Checkout DustinWin/geoip # 5
         uses: actions/checkout@v4
         with:
           repository: DustinWin/geoip
           ref: clash
           path: geoip/clash
 
-      - name: Setup Go
+      - name: Setup Go # 6
         uses: actions/setup-go@v5
         with:
           go-version-file: ./custom/go.mod
           cache-dependency-path: ./custom/go.sum
 
-      - name: Generate `clash` geodata
+      - name: Generate `clash` geodata # 7
         run: |
           mkdir -p ./community/mydata/
           archs1=(ads private microsoft-cn apple-cn google-cn games-cn ai networktest netflix disney max primevideo appletv youtube tiktok bilibili proxy cn)
           archs2=(ads private microsoft-cn apple-cn google-cn games-cn ai networktest proxy cn)
 
           # Generate `clash` geosite-all.dat
+
           for ((i = 0; i < 18; i++)); do
             curl -sSL "${domains_download_url}/${archs1[i]}.list" | grep -Ev 'DOMAIN-REGEX,|PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' > "./community/mydata/${archs1[i]}"
           done
@@ -66,32 +67,8 @@ jobs:
           rm -f ./mydata/fakeip-filter
           go run ./ --datapath=./mydata/ --outputname geosite-all.dat
 
-          # Generate `clash` geosite-all-lite.dat
-          rm -f ./mydata/ads
-          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./mydata/fakeip-filter
-          go run ./ --datapath=./mydata/ --outputname geosite-all-lite-sing-box.dat
-          rm -f ./mydata/fakeip-filter
-          go run ./ --datapath=./mydata/ --outputname geosite-all-lite.dat
 
-          # Generate `clash` geosite.dat
-          rm -f ./mydata/*
-          for ((i = 0; i < 10; i++)); do
-            curl -sSL "${domains_download_url}/${archs2[i]}.list" | grep -Ev 'DOMAIN-REGEX,|PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' > "./mydata/${archs2[i]}"
-          done
-          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./mydata/fakeip-filter
-          go run ./ --datapath=./mydata/ --outputname geosite-sing-box.dat
-          rm -f ./mydata/fakeip-filter
-          go run ./ --datapath=./mydata/ --outputname geosite.dat
-
-          # Generate `clash` geosite-lite.dat
-          rm -f ./mydata/ads
-          curl -sSL "${domains_download_url}/fakeip-filter.list" | grep -v 'PROCESS-NAME,' | sed -e '/^\s*$/d' -e 's/^DOMAIN,/full:/' -e 's/^DOMAIN-SUFFIX,//' -e 's/^DOMAIN-KEYWORD,/keyword:/' -e 's/^DOMAIN-REGEX,/regexp:/' > ./mydata/fakeip-filter
-          go run ./ --datapath=./mydata/ --outputname geosite-lite-sing-box.dat
-          rm -f ./mydata/fakeip-filter
-          go run ./ --datapath=./mydata/ --outputname geosite-lite.dat
-
-
-      - name: Get geoip relative files
+      - name: Get geoip relative files # 7
         run: |
           mkdir -p ./clash/ ./sing-box/
           mv -f ./geoip/clash/*.mmdb ./clash/
