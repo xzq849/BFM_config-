@@ -70,11 +70,18 @@ jobs:
       - name: run build.sh
         run: |
           sh build.sh
+
+
+          
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.tag }}
-          files: BoxForRootAlpha-*.zip
+          files: | 
+           BoxForRootAlpha-*.zip 
+           box/clash/config.yaml
+           box/clash/config_参考.yaml
+         #  box/clash/ruleset
           generate_release_notes: true
 
       
