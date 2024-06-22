@@ -39,9 +39,9 @@ jobs:
           cp clash/Country.mmdb master/box/clash/Country.mmdb 
           
       - name: Commit and push changes to master  
-        working-directory: master_branch  
+        working-directory: master
         run: |  
-          git config --global user.email "your-email@example.com"  
+          git config --global user.email "release@movefile.com"  
           git config --global user.name "GitHub Actions"  
           git add .  
           git commit -m "Move geodata from clash to master as box/clash/~"  
