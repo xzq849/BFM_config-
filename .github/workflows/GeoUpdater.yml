@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Checkout DustinWin/domain-list-custom  # 3
-         uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           repository: DustinWin/domain-list-custom
           path: custom
