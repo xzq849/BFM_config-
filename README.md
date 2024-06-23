@@ -24,6 +24,20 @@ DIY规则在我右上角的DIY规则库里，正在施工中
 
 <br>先刷入模块，然后替换config重启，在管理器中查看和管理<br>
 
+<br>https://www.coolapk.com/feed/56727271?shareKey=NzU4YjA5ZTZlMDhkNjY3ODg0Njc~&shareUid=17845477&shareFrom=com.coolapk.market_14.2.3<br>
+<br>
+short.weixin.qq.com
+
+dns.weixin.qq.com.cn
+
+long.weixin.qq.com<br>
+<br>这三个走代理即可让微信走fcm推送<br>
+
+
+
+
+
+
 # 为什么创建这个项目
 <br>每次打开手机Gemini语音助手显示你当前地区不支持，让我很烦，官方配置功能又不能满足我的要求。于是我花了一下午开始自己编写，顺便发布出来给有相同需求的人使用，如果你还有什么好点子欢迎提出。规则来自另一个项目
 
