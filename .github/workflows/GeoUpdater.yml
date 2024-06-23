@@ -42,8 +42,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: DustinWin/geoip
-          ref: master
-          path: geoip/clash/box/master
+          ref: clash
+          path: clash
 
       - name: Setup Go # 6
         uses: actions/setup-go@v5
@@ -70,7 +70,7 @@ jobs:
 
       - name: Get geoip relative files # 7
         run: |
-          mkdir -p ./clash/ ./sing-box/
+          mkdir -p ./clash/ 
           mv -f ./geoip/clash/*.mmdb ./clash/
           mv -f ./geoip/clash/* ./community/
           rm -rf ./geoip*
