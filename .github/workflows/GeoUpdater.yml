@@ -70,7 +70,7 @@ jobs:
 
       - name: Get geoip relative files # 7
         run: |
-          mkdir -p ./clash/ 
+          mkdir -p ./clash/ ./geoip/
           mv -f ./geoip/clash/*.mmdb ./clash/
           mv -f ./geoip/clash/* ./community/
           rm -rf ./geoip*
