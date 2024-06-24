@@ -101,12 +101,12 @@ dns:   # DNS泄露问题
 # 只能使用纯 IP 地址，可使用加密 DNS
   nameserver:    # 主要 国内代理
     - quic://dns.adguard.com:784 # DNS over QUIC
-    - https://1.1.1.1/dns-query#🍎 苹果服务
-    - https://1.0.0.1/dns-query#🔰 国内网站
-    - tls://223.5.5.5:853#🔰 国内网站 # DNS over TLS
-    - https://doh.pub/dns-query#🔰 国内网站 # DNS over HTTPS
-    - https://dns.alidns.com/dns-query#🎮 游戏服务&h3=true # 强制 HTTP/3，与 perfer-h3 无关，强制开启 DoH 的 HTTP/3 支持，若不支持将无法使用
-    - https://mozilla.cloudflare-dns.com/dns-query#🔰 国内网站&h3=true # 指定策略组和使用 HTTP/3
+    - https://1.1.1.1/dns-query#🌏 快速选择代理
+    - https://1.0.0.1/dns-query#🌏 快速选择代理
+    - tls://223.5.5.5:853##🌏 快速选择代理 # DNS over TLS
+    - https://doh.pub/dns-query##🌏 快速选择代理 # DNS over HTTPS
+    - https://dns.alidns.com/dns-query##🌏 快速选择代理&h3=true # 强制 HTTP/3，与 perfer-h3 无关，强制开启 DoH 的 HTTP/3 支持，若不支持将无法使用
+    - https://mozilla.cloudflare-dns.com/dns-query##🌏 快速选择代理&h3=true # 指定策略组和使用 HTTP/3
     - dhcp://en0 # dns from dhcp
  #   - tls://dns.google:853
  #   - tls://8.8.8.8:853
@@ -218,7 +218,7 @@ tun:    # tun模式
   inet6-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由
     - "::/1"
     - "8000::/1"
-  strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问
+   # strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问 热点将无法共享网络
   include_android_user:
     - 0
     # 多开用户
