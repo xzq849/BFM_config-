@@ -129,6 +129,7 @@ jobs:
           cd ./clash/ || exit 1
           for file in $(ls); do
             curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@clash/${file}"
+            echo “https://purge.jsdelivr.net/gh/${{ github.repository }}@clash/${file} Ready”
           done
           
           
