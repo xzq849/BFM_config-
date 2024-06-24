@@ -1,4 +1,4 @@
-name: Build ruleset and geodata
+name: only Build geodata
 on:
   workflow_dispatch:
   schedule:
@@ -101,16 +101,16 @@ jobs:
       
       
 
-      - name: Release and upload `clash` assets
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          release_name: clash
-          tag: clash
-          overwrite: true
-          body: "[Clash](https://github.com/Dreamacro/clash) 规则集文件（包含 .dat、.mmdb 和 .metadb 文件）"
-          file_glob: true
-          file: ./clash/*
+#      - name: Release and upload `clash` assets
+ #       uses: svenstaro/upload-release-action@v2
+#        with:
+  #        repo_token: ${{ secrets.GITHUB_TOKEN }}
+ #         release_name: clash
+ #         tag: clash
+  #        overwrite: true
+  #        body: "[Clash](https://github.com/Dreamacro/clash) 规则集文件（包含 .dat、.mmdb 和 .metadb 文件）"
+    #      file_glob: true
+   #       file: ./clash/*
 
       - name: Git push assets to "clash" branch
         run: |
