@@ -26,17 +26,17 @@ jobs:
       - name: Copy file_site from clash to master  
         run: |  
           mkdir -p master/box/clash  
-          cp clash/geosite-all.dat master/box/clash/GeoSite.dat 
+          cp clash/geosite-all.dat master/box/clash/geosite-all.dat 
           
       - name: Copy file_ip from clash to master  
         run: |  
           
-          cp clash/geoip.metadb master/box/clash/geoip.metadb
+          cp clash/geoip.metadb master/box/clash/geoip-all.metadb
           
       - name: Copy file_Country from clash to master  
         run: |  
 
-          cp clash/Country.mmdb master/box/clash/Country.mmdb 
+          cp clash/Country.mmdb master/box/clash/Country-all.mmdb 
           
       - name: Commit and push changes to master  
         working-directory: master
