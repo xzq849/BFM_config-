@@ -31,7 +31,7 @@ jobs:
       - name: Copy file_ip from clash to master  
         run: |  
           
-          cp clash/geoip-all.dat master/box/clash/Geoip.dat 
+          cp clash/geoip.metadb master/box/clash/Geoip.metadb
           
       - name: Copy file_Country from clash to master  
         run: |  
