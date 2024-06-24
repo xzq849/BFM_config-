@@ -225,9 +225,9 @@ profile:
 
 # https://github.com/Loyalsoldier/v2ray-rules-dat 的复刻 https://github.com/DustinWin/ruleset_geodata 
 geox-url:
-  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geoip-all.dat"
+  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geoip-all.metadb"
   geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/geosite-all.dat"
-  mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/Country.mmdb"
+  mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@clash/Country-all.mmdb"
 
 # 查看说明 https://github.com/DustinWin/ruleset_geodata/blob/master/README.md
 #  geosite 包含	ads、private、microsoft-cn、apple-cn、google-cn、games-cn、netflix、disney、max、primevideo、appletv、youtube、tiktok、bilibili、ai、networktest、proxy 和 cn
