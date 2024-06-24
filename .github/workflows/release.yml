@@ -31,12 +31,12 @@ jobs:
       - name: Copy file_ip from clash to master  
         run: |  
           
-          cp clash/geoip.metadb master/box/clash/geoip-all.metadb
+          cp clash/geoip-all.metadb master/box/clash/geoip-all.metadb
           
       - name: Copy file_Country from clash to master  
         run: |  
 
-          cp clash/Country.mmdb master/box/clash/Country-all.mmdb 
+          cp clash/Country-all.mmdb master/box/clash/Country-all.mmdb 
           
       - name: Commit and push changes to master  
         working-directory: master
