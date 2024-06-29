@@ -6,7 +6,7 @@ proxy-providers:
   "myclash":      # 你可以在settings.ini里搜索myclash 
     type: http         
     path: ./myclash.yaml # 默认只允许存储在 mihomo 的 Home Dir，如果想存储到任意位置，添加环境变量 SKIP_SAFE_PATH_CHECK=1
-    url: "订阅链接"               # 此处填写订阅url
+    url: "订阅链接🔗"               # 此处填写订阅url
     interval: 3600
     health-check:
       enable: true
