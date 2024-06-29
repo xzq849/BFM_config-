@@ -1,7 +1,7 @@
 id=box_for_root
-name=Box for Magisk/KernelSU
-version=v1.5.1
-versionCode=20240621
+name=BFR_a/KernelSU
+version=v0.1
+versionCode=20240625
 author=t@amarin & LIghtJUNction(config)
 description=use sing-box, clash, v2ray, and xray for tunnel proxy on android device
-updateJson=https://github.com/taamarin/box_for_magisk/raw/master/update.json
+updateJson=https://github.com/LIghtJUNction/BFM_config-/raw/master/update.json
