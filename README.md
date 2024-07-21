@@ -6,6 +6,10 @@
 <br>Geo数据库来源<br>https://github.com/DustinWin/ruleset_geodata?tab=readme-ov-file<br><br> <br>每天2：00更新</br>
 DIY规则在我右上角的DIY规则库里，正在施工中
 
+<<<<<<< HEAD
+=======
+运行action生成整合了geodata的模块
+>>>>>>> cbe43eeda964eacafc7ac3a1eec2a5973d1e1a17
 
 <br>检测DNS泄露情况<br>
 <br>https://www.browserscan.net/zh/dns-leak<br>

@@ -3,23 +3,11 @@
 scripts_dir="${0%/*}"
 file_settings="/data/adb/box/settings.ini"
 
-# if [ -n "$(magisk -v | grep lite &> /dev/null )" ]; then 
-#   moddir="/data/adb/lite_modules/box_for_root"
-# fi
+moddir="/data/adb/modules/box_for_root"
 
-if [ -n "$(magisk -v 2>&1 | grep lite)" ]; then   # 跟上面那个比较这两个条件判断是完全相同的
-    moddir="/data/adb/lite_modules/box_for_root"  
-else    
-    moddir="/data/adb/modules/box_for_root"  
-fi  
-  
-# 在后续代码中检查 moddir 是否被设置  
-if [ -z "$moddir" ]; then  
-    echo "Error: moddir is not set. Cannot proceed."  
-    exit 1  
-fi  
-  
-
+if [ -n "$(magisk -v | grep lite &> /dev/null )" ]; then
+  moddir="/data/adb/lite_modules/box_for_root"
+fi
 
 if [ -f "/data/adb/ksu/bin/busybox" ]; then
   # busybox KSU
