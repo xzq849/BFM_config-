@@ -1,10 +1,7 @@
 {
   "version": "v0.1",
-  "versionCode": "20240625",
-<<<<<<< Updated upstream
+  "versionCode": "20240721",
   "zipUrl": "https://github.com/LIghtJUNction/BFM_config-/releases/download/v1.5.3/BF R alpha-v1.5.3.zip",
-=======
   "zipUrl": "https://github.com/LIghtJUNction/BFM_config-/releases/download/v0.1/BF R alpha-v0.1.zip",
->>>>>>> Stashed changes
   "changelog": "https://github.com/LIghtJUNction/BFM_config-/raw/master/CHANGELOG.md"
 }
