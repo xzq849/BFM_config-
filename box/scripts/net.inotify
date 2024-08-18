@@ -1,0 +1,52 @@
+#!/system/bin/sh
+
+events=$1
+# monitor_dir=$2
+# monitor_file=$3
+
+export PATH="/data/adb/magisk:/data/adb/ksu/bin:/data/adb/ap/bin:$PATH:/system/bin"
+
+iptables_version=$(iptables --version | busybox awk '/^iptables/ {print $2}')
+required_version="v1.6.1"
+
+if [ "$(printf '%s\n' "${required_version}" "${iptables_version}" | sort -V | head -n1)" = "${required_version}" ]; then
+  IPV="iptables -w 100"
+  IP6V="ip6tables -w 100"
+else
+  IPV="iptables"
+  IP6V="ip6tables"
+fi
+
+iptables="${IPV}"
+ip6tables="${IP6V}"
+logs="/data/adb/box/run/net.log"
+
+rules_add() {
+  date > "${logs}"
+  ip -4 a | busybox awk '/inet/ {print $2}' | grep -vE "^127.0.0.1" | while read -r local_ipv4 ; do
+    if ! iptables -t mangle -nL BOX_LOCAL | grep -q $local_ipv4 > /dev/null 2>&1 ; then
+      echo "adding IPv4 address $local_ipv4 to mangle tables." >> "${logs}"
+      ${iptables} -t mangle -I BOX_EXTERNAL 3 -d $local_ipv4 -j RETURN
+      ${iptables} -t mangle -I BOX_LOCAL 4 -d $local_ipv4 -j RETURN
+    fi
+    if ! iptables -t nat -nL BOX_LOCAL | grep -q $local_ipv4 > /dev/null 2>&1 ; then
+      echo "adding IPv4 address $local_ipv4 to nat tables." >> "${logs}"
+      ${iptables} -t nat -I BOX_EXTERNAL 3 -d $local_ipv4 -j RETURN
+      ${iptables} -t nat -I BOX_LOCAL 4 -d $local_ipv4 -j RETURN
+    fi
+  done
+
+  ip -6 a | busybox awk '/inet6/ {print $2}' | grep -vE "^fe80|^::1|^fd00" | while read -r local_ipv6 ; do
+    if ! ip6tables -t mangle -nL BOX_LOCAL | grep -q $local_ipv6 > /dev/null 2>&1 ; then
+      echo "adding IPv6 address $local_ipv6 to mangle tables." >> "${logs}"
+      ${ip6tables} -t mangle -I BOX_EXTERNAL 3 -d $local_ipv6 -j RETURN
+      ${ip6tables} -t mangle -I BOX_LOCAL 4 -d $local_ipv6 -j RETURN
+    fi
+  done
+}
+
+if [ "$events" = "w" ]; then
+  if [ -f "/data/adb/box/run/box.pid" ]; then
+    rules_add
+  fi
+fi
