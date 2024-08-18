@@ -1,7 +1,6 @@
 {
-  "version": "v0.1",
-  "versionCode": "20240721",
-  "zipUrl": "https://github.com/LIghtJUNction/BFM_config-/releases/download/v1.5.3/BF R alpha-v1.5.3.zip",
-  "zipUrl": "https://github.com/LIghtJUNction/BFM_config-/releases/download/v0.1/BF R alpha-v0.1.zip",
+  "version": "v0.1.4",
+  "versionCode": "20240818",
+  "zipUrl": "https://github.com/LIghtJUNction/BFM_config-/releases/download/0.1.4/BoxForRootAlpha-0.1.4.zip",
   "changelog": "https://github.com/LIghtJUNction/BFM_config-/raw/master/CHANGELOG.md"
 }
