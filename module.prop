@@ -4,4 +4,4 @@ version=v0.1.4
 versionCode=20240818
 author=t@amarin & LIghtJUNction(config)
 description=use sing-box, clash, v2ray, and xray for tunnel proxy on android device
-updateJson=https://github.com/LIghtJUNction/BFM_config-/raw/master/update.json
+updateJson=http://raw.githubusercontent.com/LIghtJUNction/BFM_config-/master/update.json
