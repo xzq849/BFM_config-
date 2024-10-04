@@ -8,6 +8,7 @@ on:
       - master
     paths-ignore:
       - "**/README.md"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,13 +32,11 @@ jobs:
           echo "telegram_cidr=https://raw.githubusercontent.com/Loyalsoldier/geoip/rule/text/telegram.txt" >> $GITHUB_ENV
         shell: bash
 
-
       - name: Checkout the "master" branch
         uses: actions/checkout@v4
         with:
           ref: master
           path: master
-
 
       - name: Generate icloud.txt file
         run: |
@@ -107,44 +106,10 @@ jobs:
           echo "payload:" > lancidr.txt
           curl -sSL ${lan_cidr} | perl -ne '/(.+\/\d+)/ && print "  - |$1|\n"' | sed "s/|/'/g" >> lancidr.txt
 
-      - name: Move files to publish directory
+      - name: Commit and Push changes
         run: |
-          mkdir -p publish
-          cp *.txt ./publish/
-          
-      - name: Move files to master/box/clash/ruleset
-        run: |
-          ls
-          cp ./publish/* master/box/clash/ruleset/
-          
-
-
-      - name: Git push assets to "rule" branch
-        run: |
-          cd publish || exit 1
-
-          git config  user.name "github-actions[bot]"
-          git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b rule
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "${{ env.rule_NAME }}"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f origin rule
-          
-      - name: Git push assets to "master" branch
-        run: |
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout master || exit 1
-          git add .
-          git commit -m "${{ env.rule_NAME }}"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f origin master
-
-      - name: Purge jsdelivr CDN
-        run: |
-          cd publish || exit 1
-          for file in $(ls); do
-            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@rule/${file}"
-          done
+          git commit -m "$rule_NAME"
+          git push
