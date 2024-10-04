@@ -3,5 +3,5 @@ name=BFM_config
 version=v0.1.5
 versionCode=20240818
 author=t@amarin & LIghtJUNction(config)
-description= box_for_root的开箱即用版-0dns泄露_内置多规则
+description= box_for_root的开箱即用版-0dns泄露_内置多规则——亲测可以使用chatgpt手机版
 updateJson=http://raw.githubusercontent.com/LIghtJUNction/BFM_config-/master/update.json
