@@ -7,9 +7,10 @@ source /data/adb/box/settings.ini
 user_agent="box_for_root"
 # whether use ghproxy to accelerate github download
 url_ghproxy="https://mirror.ghproxy.com"
-use_ghproxy="true"
+use_ghproxy="false"
 # to enable/disable download the stable mihomo kernel
 mihomo_stable="enable"
+singbox_stable="disable"
 
 # Updating files from URLs
 upfile() {
@@ -349,7 +350,21 @@ upkernel() {
       api_url="https://api.github.com/repos/SagerNet/sing-box/releases"
       url_down="https://github.com/SagerNet/sing-box/releases"
 
-      latest_version=$(busybox wget --no-check-certificate -qO- "${api_url}" | grep "tag_name" | busybox grep -oE "v[0-9].*" | head -1 | cut -d'"' -f1)
+      if [ "${singbox_stable}" = "disable" ]; then
+        # Pre-release
+        log Debug "download ${bin_name} Pre-release"
+        latest_version=$(busybox wget --no-check-certificate -qO- "${api_url}" | grep "tag_name" | busybox grep -oE "v[0-9].*" | head -1 | cut -d'"' -f1)
+      else
+        # Latest
+        log Debug "download ${bin_name} Latest-stable"
+        latest_version=$(busybox wget --no-check-certificate -qO- "${api_url}/latest" | grep "tag_name" | busybox grep -oE "v[0-9.]*" | head -1)
+      fi
+
+      if [ -z "$latest_version" ]; then
+        log Error "Failed to get latest stable/beta/alpha version of sing-box"
+        return 1
+      fi
+
       download_link="${url_down}/download/${latest_version}/sing-box-${latest_version#v}-${platform}-${arch}.tar.gz"
       log Debug "download ${download_link}"
       upfile "${box_dir}/${file_kernel}.tar.gz" "${download_link}" && xkernel
@@ -401,7 +416,33 @@ upkernel() {
       upfile "${box_dir}/${file_kernel}.zip" "${download_link}/download/${latest_version}/${download_file}" && xkernel
       ;;
     "hysteria")
-      true
+      local arch
+      case $(uname -m) in
+        "aarch64") arch="arm64" ;;
+        "armv7l" | "armv8l") arch="armv7" ;;
+        "i686") arch="386" ;;
+        "x86_64") arch="amd64" ;;
+        *)
+          log Warning "Unsupported architecture: $(uname -m)"
+          return 1
+          ;;
+      esac
+
+      # Create backup directory if it doesn't exist
+      mkdir -p "${bin_dir}/backup"
+
+      # Backup existing Hysteria binary if it exists
+      if [ -f "${bin_dir}/hysteria" ]; then
+        cp "${bin_dir}/hysteria" "${bin_dir}/backup/hysteria.bak" >/dev/null 2>&1
+      fi
+
+      # Fetch the latest version of Hysteria from GitHub releases
+      local latest_version=$(busybox wget --no-check-certificate -qO- "https://api.github.com/repos/apernet/hysteria/releases" | grep "tag_name" | grep -oE "[0-9.].*" | head -1 | sed 's/,//g' | cut -d '"' -f 1)
+
+      local download_link="https://github.com/apernet/hysteria/releases/download/app%2Fv${latest_version}/hysteria-android-${arch}"
+
+      log Debug "Downloading ${download_link}"
+      upfile "${bin_dir}/hysteria" "${download_link}" && xkernel
       ;;
     *)
       log Error "<${bin_name}> unknown binary."
@@ -478,7 +519,11 @@ xkernel() {
       rm -rf "${bin_dir}/update"
       ;;
     "hysteria")
-      true
+      if [ -f "${box_pid}" ]; then
+        restart_box
+      else
+        log Debug "${bin_name} does not need to be restarted."
+      fi
       ;;
     *)
       log Error "<${bin_name}> unknown binary."
@@ -497,11 +542,11 @@ upxui() {
   xdashboard="${bin_name}/dashboard"
   if [[ "${bin_name}" == @(clash|sing-box) ]]; then
     file_dashboard="${box_dir}/${xdashboard}.zip"
-    url="https://github.com/MetaCubeX/metacubexd/archive/gh-pages.zip"
+    url="https://github.com/CHIZI-0618/yacd/archive/refs/heads/gh-pages.zip"
     if [ "$use_ghproxy" == true ]; then
       url="${url_ghproxy}/${url}"
     fi
-    dir_name="metacubexd-gh-pages"
+    dir_name="yacd-gh-pages"
     log Debug "Download ${url}"
     if busybox wget --no-check-certificate "${url}" -O "${file_dashboard}" >&2; then
       if [ ! -d "${box_dir}/${xdashboard}" ]; then

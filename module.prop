@@ -1,6 +1,6 @@
 id=box_for_root
 name=BFR_a/KernelSU
-version=v0.1.4
+version=v0.1.5
 versionCode=20240818
 author=t@amarin & LIghtJUNction(config)
 description=use sing-box, clash, v2ray, and xray for tunnel proxy on android device
