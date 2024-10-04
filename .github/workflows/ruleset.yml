@@ -122,7 +122,7 @@ jobs:
       - name: Git push assets to "rule" branch
         run: |
           cd publish || exit 1
-          git init
+
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b rule
@@ -133,10 +133,10 @@ jobs:
           
       - name: Git push assets to "master" branch
         run: |
-          cd .. || exit 1
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b master
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout master || exit 1
           git add .
           git commit -m "${{ env.rule_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
