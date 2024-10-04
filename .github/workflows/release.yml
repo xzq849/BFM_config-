@@ -45,7 +45,7 @@ jobs:
           git config --global user.email "release@movefile.com"  
           git config --global user.name "GitHub Actions"  
           git add .  
-          git commit -m "Move geodata from clash to master as box/clash/~"  
+          git commit -m "Move geodata from clash to master as box/clash/~"  || echo "No changes to commit"
           git push origin master || echo "Nothing to push"
 
           
