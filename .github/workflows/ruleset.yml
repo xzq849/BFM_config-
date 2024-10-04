@@ -31,15 +31,12 @@ jobs:
           echo "telegram_cidr=https://raw.githubusercontent.com/Loyalsoldier/geoip/rule/text/telegram.txt" >> $GITHUB_ENV
         shell: bash
 
-      - name: Checkout the "hidden" branch
-        uses: actions/checkout@v4
-        with:
-          ref: hidden
 
       - name: Checkout the "master" branch
         uses: actions/checkout@v4
         with:
           ref: master
+          path: master
 
 
       - name: Generate icloud.txt file
@@ -117,7 +114,7 @@ jobs:
           
       - name: Move files to master/box/clash/ruleset
         run: |
-          cp ./publish/* ./master/box/clash/ruleset/
+          cp ./publish/* master/box/clash/ruleset/
           
 
 
