@@ -116,6 +116,7 @@ jobs:
 
       - name: Git push assets to "master" branch
         run: |
+          cd master
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout master
@@ -125,6 +126,7 @@ jobs:
 
       - name: Git push assets to "rule" branch
         run: |
+          cd ../rule
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B rule
