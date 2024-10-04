@@ -29,7 +29,7 @@ tproxy-port: 9898
 external-controller: 127.0.0.1:9090 # 外部控制器，可以使用 RESTful API 来控制你的 Clash 内核；API 监听地址，你可以将 127.0.0.1 修改为 0.0.0.0 来监听所有 IP；访问地址：http://127.0.0.1:9090
 # external-controller-tls: 127.0.0.1:9443 # HTTPS-API 监听地址，需要配置 tls 部分证书和其私钥配置，使用 TLS 也必须填写 external-controller
 # secret: "lightjunction" # API 的访问密钥 默认不添加
-external-ui: "./WEBUI" # 外部用户界面路径，可以为绝对路径，或者 Clash 工作目录的相对径
+external-ui: "./ui" # 外部用户界面路径，可以为绝对路径，或者 Clash 工作目录的相对径
 external-ui-name: "lightjunction" # 自定义外部用户界面名字
 external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip" # 自定义外部用户界面下载地址 
 
