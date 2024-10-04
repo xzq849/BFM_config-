@@ -187,8 +187,6 @@ tun:    # tun模式
   dns-hijack: # dns 劫持，将匹配到的连接导入内部 dns 模块，不书写协议则为 udp://
     - udp://any:53  # 需要劫持的 DNS
     - tcp://any:53
-
-  device: MyTun # 指定 tun 网卡名称,MacOS 设备只能使用 utun 开头的网卡名
   auto-route: true # 配置路由表
   auto-detect-interface: true  # 自动识别出口网卡
   endpoint-independent-nat: false # 启用独立于端点的 NAT,性能可能会略有下降,所以建议在需要的时候开启
@@ -842,9 +840,6 @@ proxy-groups:
       - DIRECT
       - REJECT
         
-  - name: "dns劫持"
-    type: dns
-
 
       
       
