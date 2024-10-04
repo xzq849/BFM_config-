@@ -87,33 +87,40 @@ dns: # 更加科学合理
 
   # 国内 DNS 服务器
   nameserver:
-    - tls://223.5.5.5:853 # AliDNS 国内 DNS
-    - https://doh.pub/dns-query # 腾讯 DoH
-    - https://223.5.5.5/dns-query # 阿里 DoH
-    - https://dns.alidns.com/dns-query # 阿里云 DoH
+    - tls://223.5.5.5:853#🔰 国内网站  # AliDNS 国内 DNS
+    - https://doh.pub/dns-query#🔰 国内网站  # 腾讯 DoH
+    - https://223.5.5.5/dns-query#🔰 国内网站  # 阿里 DoH
+    - https://dns.alidns.com/dns-query#🔰 国内网站  # 阿里云 DoH
 
   # 国外加密 DNS 服务器，避免 DNS 泄露
   proxy-server-nameserver:
-    - https://1.1.1.1/dns-query # Cloudflare DoH
-    - tls://8.8.8.8:853 # Google DNS over TLS
-    - https://8.8.8.8/dns-query # Google DoH
-    - quic://dns.adguard.com:784 # AdGuard DNS over QUIC
+    - https://1.1.1.1/dns-query#🔰 环大陆 # Cloudflare DoH
+    - tls://8.8.8.8:853#🔰 环大陆 # Google DNS over TLS
+    - https://8.8.8.8/dns-query#🔰 环大陆 # Google DoH
+    - quic://dns.adguard.com:784#🔰 环大陆 # AdGuard DNS over QUIC
 
   # 默认 DNS 服务器（备用）
   default-nameserver:
-    - tls://1.12.12.12:853
-    - tls://223.5.5.5:853
-    - https://223.5.5.5/dns-query 
-    - tcp://119.29.29.29
-    - tcp://223.6.6.6
+    - tls://1.12.12.12:853#🌏 快速选择代理 
+    - tls://223.5.5.5:853#🌏 快速选择代理 
+    - https://223.5.5.5/dns-query#🌏 快速选择代理 
+    - tcp://119.29.29.29#🌏 快速选择代理 
+    - tcp://223.6.6.6#🌏 快速选择代理 
 
   # 根据域名策略分配 DNS 服务器
-  nameserver-policy:
-    "geosite:cn":
+  nameserver-policy: # 优先使用以下方案
+    "geosite:cn,private,apple-cn,microsoft-cn,games-cn":
       - https://223.5.5.5/dns-query  # 阿里国内 DoH
       - https://doh.pub/dns-query    # 腾讯 DoH
       - tls://223.5.5.5             # AliDNS
-    "geosite:google-cn":
+    'RULE-SET,cncidr,bing':
+      - tls://223.5.5.5:853  # AliDNS 国内 DNS
+      - https://doh.pub/dns-query  # 腾讯 DoH
+      - https://223.5.5.5/dns-query  # 阿里 DoH
+      - https://dns.alidns.com/dns-query  # 阿里云 DoH
+
+
+    "geosite:google-cn,netflix,disney,max,primevideo,appletv,youtube,tiktok,networktest,proxy":
       - https://1.1.1.1/dns-query  # 国外流量走 Cloudflare DoH
       - https://8.8.8.8/dns-query  # Google DoH
     "geosite:ads":
@@ -126,7 +133,7 @@ dns: # 更加科学合理
     - https://1.1.1.1/dns-query # Cloudflare DoH
     - tls://1dot1dot1dot1.cloudflare-dns.com # Cloudflare DoT
 
-  fake-ip-filter: # Fake IP 过滤
+  fake-ip-filter: # fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
     # 本地网络
     - '+.lan'
     - '+.local'
@@ -164,7 +171,7 @@ dns: # 更加科学合理
 
     # 特定服务过滤
     - 'geosite:proxy'
-    - 'geosite:cncidr'  # 中国 IP 地址段
+    - 'geosite:cn'  # 中国 IP 地址段
 
 
  
@@ -243,9 +250,6 @@ sniffer:      # mihomo的域名嗅探功能 如果不使用Clash内置的DNS解�
     - "80"
     - "443"
   
-
-
-
 
 profile:
   store-selected: true
