@@ -123,8 +123,8 @@ jobs:
         run: |
           cd publish || exit 1
 
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config  user.name "github-actions[bot]"
+          git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b rule
           git add .
           git commit -m "${{ env.rule_NAME }}"
