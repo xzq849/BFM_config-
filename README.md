@@ -8,12 +8,11 @@
 
 > [Geo数据库来源](https://github.com/DustinWin/ruleset_geodata?tab=readme-ov-file)每天2：00更新
 
-DIY规则在我右上角的DIY规则库里，正在施工中...............
+DIY规则在我右上角的DIY规则库里，正在施工中..............
 
 运行action即可及时更新规则
 
 [点击我检测DNS泄露情况](https://www.browserscan.net/zh/dns-leak)
-
 
 <p align="center">
     <a href="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml">
@@ -21,7 +20,6 @@ DIY规则在我右上角的DIY规则库里，正在施工中...............
     </a>
     <h1>config.yaml</h1>
 </p>
-
 
 # 更新记录🎉️
 
@@ -60,6 +58,23 @@ long.weixin.qq.com
 * 1.手机是否开启vpn软件----有两种方法，使用lsp模块hook掉chatgpt，屏蔽其对vpn的检测----二，使用本模块开启tun模式，tun模式更底层，chatgpt包括银行类软件不会检测
 * 2.手机的dns泄露情况，这里解决方案就是修改配置，注意！请使用[点击我检测DNS泄露情况](https://www.browserscan.net/zh/dns-leak)网站检测里面出现的国家是否为同一个国家，如果不是，请去yacd网站-可以从ksu的内置网页打开--修改代理组--确保一致且非国内即可
 
+## 目录结构
+
+```
+BFM_config-/
+├── box/
+│   ├── clash/
+│   │   ├── config.yaml
+│   │   ├── ui/
+│   │   │   └── assets/
+│   │   │       └── index-DACeLBg-.js
+│   ├── settings.ini
+│   ├── scripts/
+│   │   └── customize.sh
+├── README.md
+└── Don'tReadme.yaml 这是一个config示例
+```
+
 # 鸣谢
 
 [BOX_FOR_ROOT](https://github.com/taamarin/box_for_magisk) -- 上游项目
@@ -71,11 +86,6 @@ long.weixin.qq.com
 > [主要ruleset来源](https://github.com/Loyalsoldier/clash-rules)每天6：30更新
 
 > [Geo数据库来源](https://github.com/DustinWin/ruleset_geodata?tab=readme-ov-file)每天2：00更新
->
-
-
-
-
 
 ## Apk Manager
 

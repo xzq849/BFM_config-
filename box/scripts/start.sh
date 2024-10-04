@@ -5,6 +5,7 @@ file_settings="/data/adb/box/settings.ini"
 moddir="/data/adb/modules/box_for_root"
 
 # busybox Magisk/KSU/Apatch
+# busybox Magisk/KSU/Apatch
 busybox="/data/adb/magisk/busybox"
 [ -f "/data/adb/ksu/bin/busybox" ] && busybox="/data/adb/ksu/bin/busybox"
 [ -f "/data/adb/ap/bin/busybox" ] && busybox="/data/adb/ap/bin/busybox"
@@ -43,6 +44,7 @@ net_inotifyd() {
 
   net_dir="/data/misc/net"
   # Use inotifyd to monitor write events in the /data/misc/net directory for network changes, perhaps we have a better choice of files to monitor (the /proc filesystem is unsupported) and cyclic polling is a bad solution
+  # 使用 inotifyd 监控 /data/misc/net 目录中的写入事件以检测网络变化，也许我们有更好的文件选择来监控（/proc 文件系统不支持），循环轮询是一个糟糕的解决方案
   inotifyd "${scripts_dir}/net.inotify" "${net_dir}" > "/dev/null" 2>&1 &
 }
 

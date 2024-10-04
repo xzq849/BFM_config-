@@ -1,12 +1,65 @@
-
 #!/system/bin/sh
+
+
+# This script is designed to monitor and control a service based on inotify events.
+# 
+# Usage:
+#   ./box.inotify <event> <monitor_dir> <monitor_file>
+#
+# Parameters:
+#   event         - The inotify event type (e.g., 'd' for start, 'n' for stop).
+#   monitor_dir   - The directory being monitored (not used in the script).
+#   monitor_file  - The file being monitored (used to trigger service control).
+#
+# Description:
+#   The script sets up paths for service and iptables control scripts, as well as
+#   directories and files for logging and settings. It then checks if the settings
+#   file exists, is readable, and is not empty. If these conditions are met and the
+#   monitor_file parameter is set to "disable", it calls the service_control function
+#   to start or stop the service based on the event type. If the settings file is not
+#   found or is empty, it logs an error message and exits with a status of 1.
+#
+# Functions:
+#   service_control - Controls the service and iptables based on the event type.
+#     - 'd' event: Starts the service and enables iptables.
+#     - 'n' event: Disables iptables and stops the service.
+#
+# Logging:
+#   - Logs service control actions to "${run_path}/service.log".
+#   - Logs errors to "${run_path}/inotify_report.log".
+
+
+# 该脚本用于监控特定目录和文件的事件，并根据事件类型启动或停止相关服务。
+# 
+# 变量:
+# - scripts_dir: 当前脚本所在的目录路径。
+# - service_path: 服务控制脚本的路径。
+# - iptables_path: iptables 控制脚本的路径。
+# - data_box: 数据目录路径。
+# - run_path: 运行时日志目录路径。
+# - file_settings: 配置文件路径。
+# - now: 当前时间，格式为 "小时:分钟 AM/PM"。
+# - events: 传递给脚本的事件类型参数。
+# - monitor_dir: 传递给脚本的监控目录参数。
+# - monitor_file: 传递给脚本的监控文件参数。
+# 
+# 函数:
+# - service_control: 根据事件类型启动或停止服务，并记录日志。
+#   - 参数:
+#     - events: 事件类型，"d" 表示启动服务，"n" 表示停止服务。
+# 
+# 主逻辑:
+# 1. 创建运行时日志目录。
+# 2. 检查配置文件是否存在、可读且非空。
+# 3. 如果配置文件有效且监控文件参数为 "disable"，则调用 service_control 函数。
+# 4. 如果配置文件无效，则记录错误日志并退出脚本。
 
 scripts_dir="${0%/*}"
 service_path="${scripts_dir}/box.service"
 iptables_path="${scripts_dir}/box.iptables"
 data_box="/data/adb/box"
-run_path="/data/adb/box/run"
-file_settings="/data/adb/box/settings.ini"
+run_path="${data_box}/run"
+file_settings="${data_box}/settings.ini"
 now=$(date +"%I:%M %p")
 
 events="$1"
@@ -14,21 +67,22 @@ monitor_dir="$2"
 monitor_file="$3"
 
 service_control() {
-  if [ "${monitor_file}" = "disable" ]; then
-    if [ "${events}" = "d" ]; then
+  case "${events}" in
+    d)
       "${service_path}" start > "${run_path}/service.log" 2>&1 &&
       "${iptables_path}" enable >> "${run_path}/service.log" 2>&1
-    elif [ "${events}" = "n" ]; then
+      ;;
+    n)
       "${iptables_path}" disable >> "${run_path}/service.log" 2>&1 &&
       "${service_path}" stop >> "${run_path}/service.log" 2>&1
-    fi
-  fi
+      ;;
+  esac
 }
 
 mkdir -p "${run_path}"
 if [ -f "${file_settings}" ] && [ -r "${file_settings}" ] && [ -s "${file_settings}" ]; then
-  service_control
+  [ "${monitor_file}" = "disable" ] && service_control
 else
-  echo "${now} [error] file /data/adb/box/settings.ini file not found" > "${run_path}/inotify_report.log"
+  echo "${now} [error] file ${file_settings} not found or is empty" > "${run_path}/inotify_report.log"
   exit 1
 fi
