@@ -41,6 +41,7 @@ jobs:
       - name: Commit and push changes to master  
         working-directory: master
         run: |  
+          cd master
           git config --global user.email "release@movefile.com"  
           git config --global user.name "GitHub Actions"  
           git add .  
