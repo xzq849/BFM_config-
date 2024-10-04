@@ -736,7 +736,7 @@ proxy-groups:
 
       
       
-  - name: 🔰 iCluad
+  - name: 🔰 iCloud
     type: select
     proxies:
       - 🌏 快速选择代理
