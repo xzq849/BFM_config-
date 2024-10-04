@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest  
     steps:  
       - name: Checkout clash branch  
-        uses: actions/checkout@v3  
+        uses: actions/checkout@v4
         with:  
           ref: clash  
           path: clash 
             
       - name: Checkout master branch  
-        uses: actions/checkout@v3  
+        uses: actions/checkout@v4
         with:  
           ref: master  
           path: master 
@@ -41,7 +41,7 @@ jobs:
       - name: Commit and push changes to master  
         working-directory: master
         run: |  
-          cd master
+
           git config --global user.email "release@movefile.com"  
           git config --global user.name "GitHub Actions"  
           git add .  
