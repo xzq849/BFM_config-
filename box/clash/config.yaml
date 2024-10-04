@@ -75,105 +75,126 @@ hosts:
 
 # 配置组-高级
 
-dns: # 更加科学合理
-  enable: true
-  listen: 0.0.0.0:1053  # Clash DNS 监听端口
-  enhanced-mode: fake-ip  # 开启 Fake IP 模式，防止 DNS 泄露
-  fake-ip-range: 198.18.0.1/16  # Fake IP 模式使用的虚拟 IP 范围
-  use-hosts: true  # 使用 hosts 文件
-  ipv6: true  # 支持 IPv6
-  prefer-h3: true  # 是否开启 DoH 的 http/3 支持
-  ipv6-timeout: 300  # IPv6 查询超时设置
-
-  # 国内 DNS 服务器
-  nameserver:
-    - tls://223.5.5.5:853#🔰 国内网站  # AliDNS 国内 DNS
-    - https://doh.pub/dns-query#🔰 国内网站  # 腾讯 DoH
-    - https://223.5.5.5/dns-query#🔰 国内网站  # 阿里 DoH
-    - https://dns.alidns.com/dns-query#🔰 国内网站  # 阿里云 DoH
-
-  # 国外加密 DNS 服务器，避免 DNS 泄露
-  proxy-server-nameserver:
-    - https://1.1.1.1/dns-query#🔰 环大陆 # Cloudflare DoH
-    - tls://8.8.8.8:853#🔰 环大陆 # Google DNS over TLS
-    - https://8.8.8.8/dns-query#🔰 环大陆 # Google DoH
-    - quic://dns.adguard.com:784#🔰 环大陆 # AdGuard DNS over QUIC
-
-  # 默认 DNS 服务器（备用）
-  default-nameserver:
-    - tls://1.12.12.12:853#🌏 快速选择代理 
-    - tls://223.5.5.5:853#🌏 快速选择代理 
-    - https://223.5.5.5/dns-query#🌏 快速选择代理 
-    - tcp://119.29.29.29#🌏 快速选择代理 
-    - tcp://223.6.6.6#🌏 快速选择代理 
-
-  # 根据域名策略分配 DNS 服务器
-  nameserver-policy: # 优先使用以下方案
-    "geosite:cn,private,apple-cn,microsoft-cn,games-cn":
-      - https://223.5.5.5/dns-query  # 阿里国内 DoH
-      - https://doh.pub/dns-query    # 腾讯 DoH
-      - tls://223.5.5.5             # AliDNS
-    'RULE-SET,cncidr,bing':
-      - tls://223.5.5.5:853  # AliDNS 国内 DNS
-      - https://doh.pub/dns-query  # 腾讯 DoH
-      - https://223.5.5.5/dns-query  # 阿里 DoH
-      - https://dns.alidns.com/dns-query  # 阿里云 DoH
-
-
-    "geosite:google-cn,netflix,disney,max,primevideo,appletv,youtube,tiktok,networktest,proxy":
-      - https://1.1.1.1/dns-query  # 国外流量走 Cloudflare DoH
-      - https://8.8.8.8/dns-query  # Google DoH
-    "geosite:ads":
-      - REJECT  # 广告域名直接拒绝
-
-  # 回退 DNS，用于当主要 DNS 失效时
-  fallback:
-    - quic://a.passcloud.xyz:784  # DNS over QUIC
-    - tls://8.8.4.4:853 # Google DNS over TLS
-    - https://1.1.1.1/dns-query # Cloudflare DoH
-    - tls://1dot1dot1dot1.cloudflare-dns.com # Cloudflare DoT
-
-  fake-ip-filter: # fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
-    # 本地网络
+dns:   # DNS泄露问题 
+  cache-algorithm: arc # ARC（Adaptive Replacement Cache）缓存算法
+  enable: true  # 使用clashDNS
+  listen: 0.0.0.0:1053
+  use-hosts: true
+  ipv6: true
+  ipv6-timeout: 300  # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
+  prefer-h3: true # 是否开启 DOH 的 http/3。 
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*'
     - '+.lan'
     - '+.local'
-    - 'localhost'
+    - '+.leigod.com'
+    - '+.vivox.com'
+    - '+.stun.+'
+    - '.n.n.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.*.microsoft.com'
+    - '*.*.xboxlive.com'
+    - 'lens.l.google.com'
+    - '*.mcdn.bilivideo.cn'
+    - 'localhost.ptlogin2.qq.com'
+    - WORKGROUP
+    
 
-    # 国内服务相关过滤（private、cn等直连）
-    - 'geosite:private'
-    - 'geosite:cn'
-    - 'geosite:apple-cn'
-    - 'geosite:google-cn'
-    - 'geosite:microsoft-cn'
-    - 'geosite:games-cn'
+# 只能使用纯 IP 地址，可使用加密 DNS 想要DNS不泄露就用加密DNS
+  nameserver:    # 主要 国内代理
+    - quic://dns.adguard.com:784#🌏 快速选择代理  # DNS over QUIC 测试
+    - https://1.1.1.1/dns-query#🌏 快速选择代理
+    - https://1.0.0.1/dns-query#🌏 快速选择代理
+    - tls://223.5.5.5:853##🌏 快速选择代理 # DNS over TLS
+    - https://doh.pub/dns-query##🌏 快速选择代理 # DNS over HTTPS
+    - https://dns.alidns.com/dns-query##🌏 快速选择代理&h3=true # 强制 HTTP/3，与 perfer-h3 无关，强制开启 DoH 的 HTTP/3 支持，若不支持将无法使用
+    - https://mozilla.cloudflare-dns.com/dns-query##🌏 快速选择代理&h3=true # 指定策略组和使用 HTTP/3
+    - dhcp://en0#🌏 快速选择代理  # dns from dhcp #测试
+ #   - tls://dns.google:853
+ #   - tls://8.8.8.8:853
+ #   - tls://8.8.4.4:853
+ #   - tls://dns.alidns.com
+ #   - tls://223.5.5.5
+ #   - tls://223.6.6.6
+ #   - tls://dot.pub
+ #   - tls://1.12.12.12
+ #   - tls://120.53.53.53
+ #   - https://dns.google/dns-query
+ #   - https://8.8.8.8/dns-query
+ #   - https://8.8.4.4/dns-query
+ #   - https://dns.alidns.com/dns-query
+ #   - https://223.5.5.5/dns-query
+ #   - https://223.6.6.6/dns-query
+ #   - https://doh.pub/dns-query
+ #   - https://1.12.12.12/dns-query
+ #   - https://120.53.53.53/dns-query
+ #   - 'tls://8.8.4.4#dns'
+ #   - 'tls://1.0.0.1#dns'
+ #   - 'tls://[2001:4860:4860::8844]#dns'
+ #   - 'tls://[2606:4700:4700::1001]#dns'
+ 
+  # 只能使用纯 IP 地址，可使用加密 DNS
+  default-nameserver: 
+    - tls://1.12.12.12:853
+    - tls://223.5.5.5:853
+    - https://223.5.5.5/dns-query 
+    - tcp://119.29.29.29
+    - tcp://223.6.6.6 
+    - system 
+    
+  nameserver-policy:
+    "geosite:cn,private":
+      - https://223.5.5.5/dns-query
+      - https://doh.pub/dns-query
+      - https://doh.360.cn/dns-query
+      - tls://223.5.5.5
+      - tls://dot.pub
+    "rule-set:direct,private,apple,icloud":
+      - https://223.5.5.5/dns-query
+      - https://doh.pub/dns-query
+      - https://doh.360.cn/dns-query
+      - tls://223.5.5.5
+      - tls://dot.pub         
+    
 
-    # 广告相关域名过滤（直接拒绝）
-    - 'geosite:ads'
-    - 'geosite:reject'
 
-    # 流媒体服务（指定代理或需要真实IP，避免Fake IP）
-    - 'geosite:netflix'
-    - 'geosite:disney'
-    - 'geosite:max'
-    - 'geosite:primevideo'
-    - 'geosite:appletv'
-
-    # 视频和社交媒体（如需要代理则避免 Fake IP）
-    - 'geosite:youtube'
-    - 'geosite:tiktok'
-    - 'geosite:bilibili'
-
-    # AI 服务（一般走代理，避免 Fake IP）
-    - 'geosite:ai'
-
-    # 网络测试类域名（真实 IP 查询，检测网络质量）
-    - 'geosite:networktest'
-
-    # 特定服务过滤
-    - 'geosite:proxy'
-    - 'geosite:cn'  # 中国 IP 地址段
-
-
+  proxy-server-nameserver:
+  #  - https://223.5.5.5/dns-query
+    - https://doh.pub/dns-query
+    - https://doh.360.cn/dns-query
+    - tls://223.5.5.5
+    - tls://dot.pub     
+    
+  fallback:
+   #- tls://8.8.4.4
+    - quic://a.passcloud.xyz:784#🌏 快速选择代理 # quic是新兴的，比tls快一倍
+    - tls://8.8.4.4:853#🌏 快速选择代理
+    - tcp://1.1.1.1#🌏 快速选择代理
+    - https://1.1.1.1/dns-query#🌏 快速选择代理&h3=true
+    - https://1.0.0.1/dns-query#🌏 快速选择代理
+    - tls://1dot1dot1dot1.cloudflare-dns.com#🌏 快速选择代理 
+  
+      
+    
+  fallback-filter:    # 国外网站使用此解析
+    geoip: true # 配置是否使用 geoip
+    geoip-code: CN
+    geosite:      # 根据实际情况决定
+      - cn
+      - games-cn
+      - apple-cn
+      - microsoft-cn
+      
+    ipcidr:
+      - 240.0.0.0/4
+      
+    domain:
+      - '+.google.com'
+      - '+.facebook.com'
+      - '+.youtube.com'
+      - '+.googleapis.+'     
  
       
 
