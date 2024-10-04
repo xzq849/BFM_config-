@@ -24,22 +24,32 @@ socks-port: 7891
 mixed-port: 7892
 redir-port: 9797
 tproxy-port: 9898
-external-controller: 127.0.0.1:9090 
-# secret: "123456"   # 密码可以选择不添加
-external-ui: /data/adb/box/clash/dashboard
+
+# 外部控制 (API)
+external-controller: 127.0.0.1:9090 # 外部控制器，可以使用 RESTful API 来控制你的 Clash 内核；API 监听地址，你可以将 127.0.0.1 修改为 0.0.0.0 来监听所有 IP；访问地址：http://127.0.0.1:9090
+# external-controller-tls: 127.0.0.1:9443 # HTTPS-API 监听地址，需要配置 tls 部分证书和其私钥配置，使用 TLS 也必须填写 external-controller
+# secret: "lightjunction" # API 的访问密钥 默认不添加
+external-ui: "./webui" # 外部用户界面路径，可以为绝对路径，或者 Clash 工作目录的相对路径
+external-ui-name: "lightjunction" # 自定义外部用户界面名字
+external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip" # 自定义外部用户界面下载地址 
+
+
+
+
+
 # 配置组二            布尔类
 ipv6: false
 allow-lan: true
 tcp-concurrent: true
 unified-delay: true
-geodata-mode: false
-geo-auto-update: false # 是否自动更新 geodata
+geodata-mode: true # 是否启用 geodata 规则集和geodata都启用
+geo-auto-update: true # 是否自动更新 geodata
 geo-update-interval: 24 # 更新间隔，单位：小时
 keep-alive-interval: 1800  # 减少移动端设备耗电
 
 # 配置组三           选择类
 mode: rule  # rule（默认） global（需要在GLOBAL策略组选择）direct 
-log-level: debug
+log-level: error
 global-client-fingerprint: random # 随机指纹 （全局客户端指纹）
 geodata-loader: standard # memconservative（小内存）
 find-process-mode: strict
@@ -63,134 +73,101 @@ hosts:
   
 
 
-
-
-
-
-
-
 # 配置组-高级
 
-dns:   # DNS泄露问题 
-  cache-algorithm: arc # ARC（Adaptive Replacement Cache）缓存算法
-  enable: true  # 使用clashDNS
-  listen: 0.0.0.0:1053
-  use-hosts: true
-  ipv6: true
-  ipv6-timeout: 300  # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
-  prefer-h3: true # 是否开启 DOH 的 http/3。 
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
-  fake-ip-filter:
-    - '*'
-    - '+.lan'
-    - '+.local'
-    - '+.leigod.com'
-    - '+.vivox.com'
-    - '+.stun.+'
-    - '.n.n.srv.nintendo.net'
-    - '+.stun.playstation.net'
-    - 'xbox.*.*.microsoft.com'
-    - '*.*.xboxlive.com'
-    - 'lens.l.google.com'
-    - '*.mcdn.bilivideo.cn'
-    - 'localhost.ptlogin2.qq.com'
-    - WORKGROUP
-    
+dns: # 更加科学合理
+  enable: true
+  listen: 0.0.0.0:1053  # Clash DNS 监听端口
+  enhanced-mode: fake-ip  # 开启 Fake IP 模式，防止 DNS 泄露
+  fake-ip-range: 198.18.0.1/16  # Fake IP 模式使用的虚拟 IP 范围
+  use-hosts: true  # 使用 hosts 文件
+  ipv6: true  # 支持 IPv6
+  prefer-h3: true  # 是否开启 DoH 的 http/3 支持
+  ipv6-timeout: 300  # IPv6 查询超时设置
 
-# 只能使用纯 IP 地址，可使用加密 DNS 想要DNS不泄露就用加密DNS
-  nameserver:    # 主要 国内代理
-    - quic://dns.adguard.com:784#🌏 快速选择代理  # DNS over QUIC 测试
-    - https://1.1.1.1/dns-query#🌏 快速选择代理
-    - https://1.0.0.1/dns-query#🌏 快速选择代理
-    - tls://223.5.5.5:853##🌏 快速选择代理 # DNS over TLS
-    - https://doh.pub/dns-query##🌏 快速选择代理 # DNS over HTTPS
-    - https://dns.alidns.com/dns-query##🌏 快速选择代理&h3=true # 强制 HTTP/3，与 perfer-h3 无关，强制开启 DoH 的 HTTP/3 支持，若不支持将无法使用
-    - https://mozilla.cloudflare-dns.com/dns-query##🌏 快速选择代理&h3=true # 指定策略组和使用 HTTP/3
-    - dhcp://en0#🌏 快速选择代理  # dns from dhcp #测试
- #   - tls://dns.google:853
- #   - tls://8.8.8.8:853
- #   - tls://8.8.4.4:853
- #   - tls://dns.alidns.com
- #   - tls://223.5.5.5
- #   - tls://223.6.6.6
- #   - tls://dot.pub
- #   - tls://1.12.12.12
- #   - tls://120.53.53.53
- #   - https://dns.google/dns-query
- #   - https://8.8.8.8/dns-query
- #   - https://8.8.4.4/dns-query
- #   - https://dns.alidns.com/dns-query
- #   - https://223.5.5.5/dns-query
- #   - https://223.6.6.6/dns-query
- #   - https://doh.pub/dns-query
- #   - https://1.12.12.12/dns-query
- #   - https://120.53.53.53/dns-query
- #   - 'tls://8.8.4.4#dns'
- #   - 'tls://1.0.0.1#dns'
- #   - 'tls://[2001:4860:4860::8844]#dns'
- #   - 'tls://[2606:4700:4700::1001]#dns'
- 
-  # 只能使用纯 IP 地址，可使用加密 DNS
-  default-nameserver: 
+  # 国内 DNS 服务器
+  nameserver:
+    - tls://223.5.5.5:853 # AliDNS 国内 DNS
+    - https://doh.pub/dns-query # 腾讯 DoH
+    - https://223.5.5.5/dns-query # 阿里 DoH
+    - https://dns.alidns.com/dns-query # 阿里云 DoH
+
+  # 国外加密 DNS 服务器，避免 DNS 泄露
+  proxy-server-nameserver:
+    - https://1.1.1.1/dns-query # Cloudflare DoH
+    - tls://8.8.8.8:853 # Google DNS over TLS
+    - https://8.8.8.8/dns-query # Google DoH
+    - quic://dns.adguard.com:784 # AdGuard DNS over QUIC
+
+  # 默认 DNS 服务器（备用）
+  default-nameserver:
     - tls://1.12.12.12:853
     - tls://223.5.5.5:853
     - https://223.5.5.5/dns-query 
     - tcp://119.29.29.29
-    - tcp://223.6.6.6 
-    - system 
-    
+    - tcp://223.6.6.6
+
+  # 根据域名策略分配 DNS 服务器
   nameserver-policy:
-    "geosite:cn,private":
-      - https://223.5.5.5/dns-query
-      - https://doh.pub/dns-query
-      - https://doh.360.cn/dns-query
-      - tls://223.5.5.5
-      - tls://dot.pub
-    "rule-set:direct,private,apple,icloud":
-      - https://223.5.5.5/dns-query
-      - https://doh.pub/dns-query
-      - https://doh.360.cn/dns-query
-      - tls://223.5.5.5
-      - tls://dot.pub         
-    
+    "geosite:cn":
+      - https://223.5.5.5/dns-query  # 阿里国内 DoH
+      - https://doh.pub/dns-query    # 腾讯 DoH
+      - tls://223.5.5.5             # AliDNS
+    "geosite:google-cn":
+      - https://1.1.1.1/dns-query  # 国外流量走 Cloudflare DoH
+      - https://8.8.8.8/dns-query  # Google DoH
+    "geosite:ads":
+      - REJECT  # 广告域名直接拒绝
 
-
-  proxy-server-nameserver:
-  #  - https://223.5.5.5/dns-query
-    - https://doh.pub/dns-query
-    - https://doh.360.cn/dns-query
-    - tls://223.5.5.5
-    - tls://dot.pub     
-    
+  # 回退 DNS，用于当主要 DNS 失效时
   fallback:
-   #- tls://8.8.4.4
-    - quic://a.passcloud.xyz:784#🌏 快速选择代理 # quic是新兴的，比tls快一倍
-    - tls://8.8.4.4:853#🌏 快速选择代理
-    - tcp://1.1.1.1#🌏 快速选择代理
-    - https://1.1.1.1/dns-query#🌏 快速选择代理&h3=true
-    - https://1.0.0.1/dns-query#🌏 快速选择代理
-    - tls://1dot1dot1dot1.cloudflare-dns.com#🌏 快速选择代理 
-  
-      
-    
-  fallback-filter:    # 国外网站使用此解析
-    geoip: true # 配置是否使用 geoip
-    geoip-code: CN
-    geosite:      # 根据实际情况决定
-      - cn
-      - games-cn
-      - apple-cn
-      - microsoft-cn
-      
-    ipcidr:
-      - 240.0.0.0/4
-      
-    domain:
-      - '+.google.com'
-      - '+.facebook.com'
-      - '+.youtube.com'
-      - '+.googleapis.+'     
+    - quic://a.passcloud.xyz:784  # DNS over QUIC
+    - tls://8.8.4.4:853 # Google DNS over TLS
+    - https://1.1.1.1/dns-query # Cloudflare DoH
+    - tls://1dot1dot1dot1.cloudflare-dns.com # Cloudflare DoT
+
+  fake-ip-filter: # Fake IP 过滤
+    # 本地网络
+    - '+.lan'
+    - '+.local'
+    - 'localhost'
+
+    # 国内服务相关过滤（private、cn等直连）
+    - 'geosite:private'
+    - 'geosite:cn'
+    - 'geosite:apple-cn'
+    - 'geosite:google-cn'
+    - 'geosite:microsoft-cn'
+    - 'geosite:games-cn'
+
+    # 广告相关域名过滤（直接拒绝）
+    - 'geosite:ads'
+    - 'geosite:reject'
+
+    # 流媒体服务（指定代理或需要真实IP，避免Fake IP）
+    - 'geosite:netflix'
+    - 'geosite:disney'
+    - 'geosite:max'
+    - 'geosite:primevideo'
+    - 'geosite:appletv'
+
+    # 视频和社交媒体（如需要代理则避免 Fake IP）
+    - 'geosite:youtube'
+    - 'geosite:tiktok'
+    - 'geosite:bilibili'
+
+    # AI 服务（一般走代理，避免 Fake IP）
+    - 'geosite:ai'
+
+    # 网络测试类域名（真实 IP 查询，检测网络质量）
+    - 'geosite:networktest'
+
+    # 特定服务过滤
+    - 'geosite:proxy'
+    - 'geosite:cncidr'  # 中国 IP 地址段
+
+
+ 
       
 
 # DNS配置完成
@@ -207,11 +184,18 @@ tun:    # tun模式
   device: utun # gvisor/mixed
   mtu: 9000 # 最大传输单元
   stack: system # gvisor / lwip / system
-  dns-hijack:
-    - any:53  # 需要劫持的 DNS
+  dns-hijack: # dns 劫持，将匹配到的连接导入内部 dns 模块，不书写协议则为 udp://
+    - udp://any:53  # 需要劫持的 DNS
     - tcp://any:53
+
+  device: MyTun # 指定 tun 网卡名称,MacOS 设备只能使用 utun 开头的网卡名
   auto-route: true # 配置路由表
   auto-detect-interface: true  # 自动识别出口网卡
+  endpoint-independent-nat: false # 启用独立于端点的 NAT,性能可能会略有下降,所以建议在需要的时候开启
+  inet4-route-exclude-address: #启用 auto-route 时排除自定义网段
+    - 192.168.0.0/16
+  inet6-route-exclude-address: #启用 auto-route 时排除自定义网段
+    - fc00::/7
   inet4-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由
     - 0.0.0.0/1
     - 128.0.0.0/1
@@ -226,7 +210,7 @@ tun:    # tun模式
    #    - com.android.chrome
   # exclude_package:
     # - com.tencent.mm #  没必要开
-    
+
 
 sniffer:      # mihomo的域名嗅探功能 如果不使用Clash内置的DNS解析服务，就无法准确还原域名，进行域名分流             
   enable: true                    
@@ -355,35 +339,6 @@ proxy-groups:
   #    - 🌏 快速选择代理
   #    - REJECT # 流量少不想下载
         
-  - name: 😺 GITHB
-    type: select
-    proxies:
-      - 🔰 环大陆
-      - 🌏 快速选择代理
-      - 🇭🇰 选择香港节点                      # 这些代理组在后面定义了
-      - 🇺🇲 选择美国节点
-      - 🇯🇵 选择日本节点
-      - 🇦🇺 选择澳大利亚节点  
-      - 🇺🇦 选择乌克兰节点
-      - 🇨🇳 选择台湾节点  
-      - 🇸🇬 选择新加坡节点
-      - 🇬🇧 选择英国节点
-      - 🇦🇷 选择阿根廷节点
-      - 🇷🇺 选择俄罗斯节点
-      - 🇹🇷 选择土耳其节点
-      - 🇰🇷 选择韩国节点
-      - 🇮🇳 选择印度节点
-      - 🇩🇪 选择德国节点
-      - 🇨🇦 选择加拿大节点
-      - 🇫🇷 选择法国节点
-      - REJECT
-      - DIRECT
-      - temp_1
-      - temp_2
-      - temp_3   
-
-
-
 
   - name: 🤖 人工智能
     type: select
@@ -887,8 +842,10 @@ proxy-groups:
       - DIRECT
       - REJECT
         
-      
-      
+  - name: "dns劫持"
+    type: dns
+
+
       
       
       
@@ -1185,93 +1142,76 @@ rule-providers: # https://github.com/Loyalsoldier/clash-rules 项目地址    �
 # 规则提供者在上
 
 
-# v2.1调整了一下顺序
-# v2.2移除了Geo-xx 的代理组，感觉有点多余了（原本想的是按国家去匹配漏网之鱼）
-# v2.2添加了 geodata-loader: standard
+
 # 欢迎完善 DNS泄露的解决方案可以参考 dns设置 - https://1.1.1.1/dns-query#🌏 快速选择代理   注意后面的#🌏 快速选择代理
 
 # 规则如下 顺序- 基本-自定义-特定网站-直连名单-拒绝名单-一般需要代理的网站-查漏补缺
 # 规则如下！
 rules:
-  # 基本规则                                                                              # 1
-  - RULE-SET,lancidr,DIRECT # 11 局域网 IP 及保留 IP 地址列表 
-  - RULE-SET,private,DIRECT # 4 私有网络专用域名列表内
-  - GEOSITE,private,DIRECT   # 添加主流 Clash dashboard 在线面板域名（clash.razord.top、clash.metacubex.one、yacd.haishan.me、yacd.metacubex.one、d.metacubex.one、metacubex.github.io 和 metacubexd.pages.dev）
+  # 基本规则
+  - RULE-SET,lancidr,DIRECT # 局域网 IP 及保留 IP 地址列表
+  - RULE-SET,private,DIRECT # 私有网络专用域名列表
+  - GEOSITE,private,DIRECT   # 主流 Clash dashboard 在线面板域名
+
   ## fix dnsleak
   - IP-CIDR,127.0.0.1/32,REJECT,no-resolve
   - IP-CIDR,198.18.0.1/16,REJECT,no-resolve
   - IP-CIDR,28.0.0.1/8,REJECT,no-resolve
   - IP-CIDR6,::1/128,REJECT,no-resolve  
+
   ## direct FCM
   - AND,((NETWORK,TCP),(DST-PORT,5228-5230)),DIRECT
   - AND,((NETWORK,TCP),(DST-PORT,5228-5230),(OR,((DOMAIN-KEYWORD,google)))),DIRECT
-    ## direct ntp
+
+  ## direct ntp
   - AND,((NETWORK,UDP),(DST-PORT,123)),DIRECT
   - DST-PORT,123/136/137-139,DIRECT,udp
 
-  # 自定义规则 高优先度                                                                 # 2
-# - RULE-SET,DIY-XXXX,XXXX
-# - RULE-SET,DIY-XXXX,XXXX
-# - RULE-SET,DIY-XXXX,XXXX
-# - RULE-SET,DIY-XXXX,XXXX
-# - RULE-SET,DIY-XXXX,XXXX
-# - RULE-SET,DIY-XXXX,XXXX
-  # 自定义结束
-
-
-  # 特定网站集合                                                                    # 3
-  - GEOSITE,ai,🔰 环大陆  #采用 blackmatrix7/ios_rule_script/OpenAI、blackmatrix7/ios_rule_script/Copilot、blackmatrix7/ios_rule_script/Gemini 和 blackmatrix7/ios_rule_script/Claude 组合  
-  - GEOSITE,networktest,📈 网络测试  # 📈 网络测试 这个代理组用来检测网络质量 keyword   ipv6-test   test-ipv6   ipv6test   testipv6
-  - RULE-SET,telegramcidr,📲 电报消息 # 13 tg使用的域名选择代理
-  - RULE-SET,icloud,🔰 iCluad # 6 icloud域名
+  # 自定义规则 高优先度
+  # - RULE-SET,DIY-XXXX,XXXX
+  # ...
+  # geosite 包含：fakeip-filter/private/ads/microsoft-cn/apple-cn/google-cn/games-cn/netflix/disney/max/primevideo/appletv/youtube/tiktok/bilibili/ai/networktest/proxy/cn
+  # 特定网站集合
+  - GEOSITE,ai,🔰 环大陆
+  - GEOSITE,networktest,📈 网络测试
+  - RULE-SET,telegramcidr,📲 电报消息
+  - RULE-SET,icloud,🔰 iCloud
   - RULE-SET,bing,🔰 BING 
   - GEOSITE,games-cn,🎮 游戏服务
-# 此处可以使用sub-rules举个例子
-# steam 和 epic都在 这个games-cn大规则里面
-# 这个时候 可以使用sub-rules细分让steam 走a节点 epic走 b节点
-# ...
+
   - GEOSITE,netflix,🎥 奈飞视频
-  - GEOIP,telegram,📲 电报消息
   - GEOSITE,disney,📽️ 迪士尼+
   - GEOSITE,max,🎞️ Max
   - GEOSITE,primevideo,🎬 Prime Video
   - GEOSITE,appletv,🍎 Apple TV+
-  - GEOSITE,apple-cn,🍎 苹果服务 # 7 apple在国内可直连域名 
+  - GEOSITE,apple-cn,🍎 苹果服务 
   - RULE-SET,apple,🍎 苹果服务  
-  - GEOSITE,google-cn,🇬 谷歌服务 #建议走代理
+  - GEOSITE,google-cn,🇬 谷歌服务
   - GEOSITE,youtube,📹 油管视频
   - GEOSITE,tiktok,🎵 TikTok
   - GEOSITE,bilibili,📺 哔哩哔哩
 
-  # 直连（或者断流）规则（出现在前面的规则优先级更高)
-
-  # RULE-SET  
-  - RULE-SET,applications,🔰 国内网站 # 1   常用软件 (电脑)
-  - RULE-SET,direct,🔰 国内网站 # 10 可以直连的网站
-  - RULE-SET,cncidr,🔰 国内网站 # 12 中国大陆 IP 地址列表  
+  # 直连（或者断流）规则
+  - RULE-SET,applications,🔰 国内网站
+  - RULE-SET,direct,🔰 国内网站
+  - RULE-SET,cncidr,🔰 国内网站
   - GEOSITE,cn,🔰 国内网站
-
 
   - DOMAIN-SUFFIX,o33249.ingest.sentry.io,REJECT  # OPENAI 跟踪域名 reject
   - DOMAIN-SUFFIX,openaicom.imgix.net,REJECT  # OPENAI 跟踪域名 reject
 
-  - RULE-SET,reject,🔰 广告 # 5  广告域名  
-  - GEOSITE,ads,🔰 广告 #  
-  # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT # quic
-  # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT # quic
+  - RULE-SET,reject,🔰 广告
+  - GEOSITE,ads,🔰 广告
 
-  # 一般需要代理的网站                                       # 4
-  
-  - RULE-SET,google,🔰 环大陆 # 8 google在国内可直连建议代理除非缺流量  
-  - RULE-SET,proxy,🔰 环大陆   # 9 需要代理的网站 # assistant-s3-pa.googleapis.com:443
-  - GEOSITE,proxy,🌏 快速选择代理  
-    ##########################################################
+  # 一般需要代理的网站
+  - RULE-SET,google,🔰 环大陆
+  - RULE-SET,proxy,🔰 环大陆
+    - SUB-RULE,google,🇬 谷歌服务
+    - SUB-RULE,youtube,📹 油管视频
 
   # 低优先度 匹配·漏网之鱼               
+  - MATCH,🌏 规则之外 # 收尾
 
-  - MATCH,🌏 规则之外 # 16 收尾     结束啦
-
-# sub-rules:  # 子规则 放在某个判断的规则后分支判断
 
 
 # 配置完成 by LIghtJUNction  
