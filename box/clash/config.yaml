@@ -1201,8 +1201,7 @@ rules:
   # 一般需要代理的网站
   - RULE-SET,google,🔰 环大陆
   - RULE-SET,proxy,🔰 环大陆
-    - SUB-RULE,google,🇬 谷歌服务
-    - SUB-RULE,youtube,📹 油管视频
+
 
   # 低优先度 匹配·漏网之鱼               
   - MATCH,🌏 规则之外 # 收尾
