@@ -14,14 +14,14 @@ DIY规则在我右上角的DIY规则库里，正在施工中...............
 
 [点击我检测DNS泄露情况](https://www.browserscan.net/zh/dns-leak)
 
-```
+
 <p align="center">
     <a href="https://github.com/LIghtJUNction/box_for_magisk_config-bfmc-/blob/master/box/clash/config.yaml">
     <img src="https://github.com/LIghtJUNction/CONFIG_RULE_DIY/actions/workflows/hiclick%20me(config).yml/badge.svg" />
     </a>
     <h1>config.yaml</h1>
 </p>
-```
+
 
 # 更新记录🎉️
 
