@@ -36,7 +36,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: master
-          path: master
 
       - name: Generate icloud.txt file
         run: |
