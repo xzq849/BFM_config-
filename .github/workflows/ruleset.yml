@@ -113,10 +113,21 @@ jobs:
         run: |
           ls
           cp ./publish/* master/box/clash/ruleset/
+
+      - name: Git push assets to "master" branch
+        run: |
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout master || exit 1
+          git add .
+          git commit -m "${{ env.rule_NAME }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin master
           
       - name: Git push assets to "rule" branch
         run: |
-          git init
+          
           git config  user.name "github-actions[bot]"
           git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout rule
@@ -125,15 +136,7 @@ jobs:
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin rule
           
-      - name: Git push assets to "master" branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout master || exit 1
-          git add .
-          git commit -m "${{ env.rule_NAME }}"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f origin master
+
       - name: Purge jsdelivr CDN
         run: |
           cd publish || exit 1
