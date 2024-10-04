@@ -46,7 +46,9 @@ jobs:
           git config --global user.name "GitHub Actions"  
           git add .  
           git commit -m "Move geodata from clash to master as box/clash/~"  
-          git push origin master
+          git push origin master || echo "Nothing to push"
+
+          
   build:
     runs-on: ubuntu-latest
     steps:
