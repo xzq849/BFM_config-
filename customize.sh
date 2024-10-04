@@ -188,5 +188,4 @@ fi
 
 start $pkg1 || start com.android.browser || start || abort "failed to install"
 
-ui_print "来给我点个star吧"
-abort "来给我github点个star吧，谢谢！关注我的公众号/加入我的qq群/关注我的酷安号：LIghtJUNction/获取支持"
+ui_print "来给我github点个star吧，谢谢！关注我的公众号/加入我的qq群/关注我的酷安号：LIghtJUNction/获取支持"
