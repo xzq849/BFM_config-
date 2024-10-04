@@ -81,8 +81,13 @@ chmod ugo+x /data/adb/box/scripts/*
 ui_print "-----------------------------------------------------------"
 ui_print "- Do you want to download Kernel(xray hysteria clash v2fly sing-box) and GeoX(geosite geoip mmdb)? size: ±100MB.--下载内核（xray+hysteria+clash+sing-box）和GeoX（geosite+geoip+mmdb）"
 ui_print "- Make sure you have a good internet connection.--确保有良好的网络连接"
-ui_print "- [ Vol UP(+): Yes ] -- 按音量上（+）键下载内核（xray+hysteria+clash+sing-box）和GeoX（geosite+geoip+mmdb）（与当前定制版不兼容）"
-ui_print "- [ Vol DOWN(-): No ] -- 按音量下（-）键取消下载（已经内置）"
+
+ui_print "------------------------------------------------------------"
+
+ui_print "使用本模块建议按音量下（-）"
+
+ui_print "- [ Vol UP(+): Yes ] -- 按音量上（+）键下载（与当前定制版不兼容）"
+ui_print "- [ Vol DOWN(-): No ] -- 按音量下（-）键取消下载（已经内置）()"
 
 START_TIME=$(date +%s)
 while true ; do
@@ -91,6 +96,8 @@ while true ; do
   if [ $(( NOW_TIME - START_TIME )) -gt 9 ] ; then
     ui_print "- No input detected after 10 seconds -- 10秒后没有输入"
     break
+
+
   else
     if $(cat $TMPDIR/events | grep -q KEY_VOLUMEUP) ; then
       ui_print "- It will take a while.... -- 祝你好运，下载中...记得改下config文件..你干脆去下载原版吧"
