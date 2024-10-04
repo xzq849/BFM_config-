@@ -117,7 +117,7 @@ jobs:
           
       - name: Move files to master/box/clash/ruleset
         run: |
-          cp ./publish/* master/box/clash/ruleset/
+          cp ./publish/* ./master/box/clash/ruleset/
           
 
 
