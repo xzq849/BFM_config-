@@ -7,12 +7,12 @@ POSTFSDATA=false
 LATESTARTSERVICE=true
 
 if [ "$BOOTMODE" != true ]; then
-  abort "-----------------------------------------------------------"
+  ui_print "-----------------------------------------------------------"
   ui_print "! Please install in Magisk/KernelSU/APatch Manager -- 请在root管理器中安装"
   ui_print "! Install from recovery is NOT supported --不支持从recovery安装"
   abort "-----------------------------------------------------------"
 elif [ "$KSU" = true ] && [ "$KSU_VER_CODE" -lt 10670 ]; then
-  abort "-----------------------------------------------------------"
+  ui_print "-----------------------------------------------------------"
   ui_print "! Please update your KernelSU and KernelSU Manager -- 请更新你的管理器！"
   abort "-----------------------------------------------------------"
 fi
