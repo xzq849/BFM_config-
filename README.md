@@ -1,6 +1,8 @@
 # Box for Root config
 
 ## 快速介绍🚀️
+如果你是ksu/apu+mihomo组合:
+［MagicNet］(https://github.com/LIghtJUNction/RootManage-Module-Model/tree/MagicNet)
 
 > [副规则集合来源](https://github.com/xkww3n/Rules)每天12：00更新
 
