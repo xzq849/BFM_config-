@@ -190,9 +190,9 @@ pkg1="com.github.android"
 else
 url="https://github.com/taamarin/box_for_magisk"
 pkg1="com.github.android"
-un_print "This module is for Chinese people , do you want to install ?" 
+un_print "This module is intended for Chinese users. Do you want to install it?"
 fi
 
-start $pkg1 || start com.android.browser || start || abort "failed to install"
+start $pkg1 || start com.android.browser || start || ui_print "跳转失败"
 
 ui_print "来给我github点个star吧，谢谢！关注我的公众号/加入我的qq群/关注我的酷安号：LIghtJUNction/获取支持"
