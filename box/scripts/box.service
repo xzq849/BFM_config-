@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
 scripts_dir="${0%/*}"
-source /data/adb/box/settings.ini
+source /data/adb/box/settings.ini # 引入log函数
 
 PROPFILE="/data/adb/modules/box_for_root/module.prop"
 
