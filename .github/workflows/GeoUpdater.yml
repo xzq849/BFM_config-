@@ -2,7 +2,7 @@ name: only Build geodata
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 18 * * *"
+    # - cron: "30 18 * * *"
   push:
     branches:
       - master
